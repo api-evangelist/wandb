@@ -1,0 +1,180 @@
+aid: wandb
+url: https://raw.githubusercontent.com/api-evangelist/wandb/refs/heads/main/apis.yml
+name: Weights and Biases
+kind: company
+description: >-
+  Weights and Biases (W&B) is an MLOps and AI developer platform covering the
+  full lifecycle of model and LLM application development. W&B Models provides
+  experiment tracking, hyperparameter sweeps, artifacts, model registry, and
+  reports. W&B Weave provides LLM tracing, evaluation, cost tracking, guardrails,
+  and prompt/playground tooling for production AI applications. Three CoreWeave-
+  powered serverless capabilities sit alongside the core platform: Serverless
+  Inference (OpenAI-compatible API for open-source foundation models),
+  Serverless RL (post-training with ART/RULER), and Serverless Sandboxes
+  (isolated code execution). The platform exposes a Python SDK, a public REST
+  API, and a GraphQL API at api.wandb.ai, with CLI tooling and webhook
+  integrations. W&B was acquired by CoreWeave in 2025.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - MLOps
+  - Experiment Tracking
+  - LLM Observability
+  - Model Registry
+  - AI Platform
+  - Evaluation
+  - Tracing
+created: '2026-05-23'
+modified: '2026-05-23'
+specificationVersion: '0.19'
+apis:
+  - aid: wandb:graphql
+    name: W&B GraphQL API
+    description: >-
+      Primary programmatic surface for W&B Models. The Python public API
+      (wandb.Api) speaks GraphQL against api.wandb.ai to query and manage runs,
+      projects, sweeps, artifacts, registries, reports, automations, slack and
+      webhook integrations, and viewer/entity context.
+    humanURL: https://docs.wandb.ai/ref/python/public-api/api/
+    baseURL: https://api.wandb.ai/graphql
+    tags:
+      - GraphQL
+      - Runs
+      - Artifacts
+      - Sweeps
+      - Model Registry
+    properties:
+      - type: Documentation
+        url: https://docs.wandb.ai/ref/python/public-api/api/
+  - aid: wandb:rest
+    name: W&B REST API
+    description: >-
+      REST endpoints exposed by the W&B platform for ingestion, artifact
+      upload, file storage, and integration callbacks. Used internally by the
+      wandb SDK and CLI, and available to customers for direct integration.
+    humanURL: https://docs.wandb.ai/
+    baseURL: https://api.wandb.ai
+    tags:
+      - REST
+      - Ingestion
+      - Artifacts
+    properties:
+      - type: Documentation
+        url: https://docs.wandb.ai/
+  - aid: wandb:weave
+    name: W&B Weave (LLM Observability)
+    description: >-
+      LLM observability and evaluation platform providing tracing, output
+      evaluation, cost estimation, prompt playground, guardrails, and a
+      Python and TypeScript SDK. Traces and evaluations are persisted to the
+      W&B backend and queryable via the Weave SDK.
+    humanURL: https://weave-docs.wandb.ai/
+    baseURL: https://api.wandb.ai
+    tags:
+      - LLM
+      - Observability
+      - Tracing
+      - Evaluation
+      - Guardrails
+    properties:
+      - type: Documentation
+        url: https://weave-docs.wandb.ai/
+      - type: Repository
+        url: https://github.com/wandb/weave
+  - aid: wandb:python-sdk
+    name: W&B Python SDK
+    description: >-
+      Official Python SDK (wandb) for logging runs, metrics, gradients, media,
+      and artifacts; running sweeps; and interacting with the W&B public API.
+      Apache-2.0 licensed.
+    humanURL: https://docs.wandb.ai/ref/python/
+    baseURL: https://github.com/wandb/wandb
+    tags:
+      - SDK
+      - Python
+    properties:
+      - type: Repository
+        url: https://github.com/wandb/wandb
+      - type: Package
+        url: https://pypi.org/project/wandb/
+  - aid: wandb:cli
+    name: W&B CLI
+    description: >-
+      Command-line interface bundled with the wandb Python package for login,
+      sweep orchestration, artifact management, and local agent execution.
+    humanURL: https://docs.wandb.ai/ref/cli/
+    baseURL: https://docs.wandb.ai/ref/cli/
+    tags:
+      - CLI
+      - Sweeps
+      - Agents
+    properties:
+      - type: Documentation
+        url: https://docs.wandb.ai/ref/cli/
+  - aid: wandb:serverless-inference
+    name: W&B Serverless Inference (CoreWeave)
+    description: >-
+      OpenAI-compatible inference API for hosted open-source foundation models,
+      running on CoreWeave GPU infrastructure with native Weave tracing and
+      usage tracking.
+    humanURL: https://docs.wandb.ai/guides/inference
+    baseURL: https://api.inference.wandb.ai/v1
+    tags:
+      - Inference
+      - OpenAI-Compatible
+      - LLM
+      - Serverless
+    properties:
+      - type: Documentation
+        url: https://docs.wandb.ai/guides/inference
+  - aid: wandb:webhook-automations
+    name: W&B Webhook Automations
+    description: >-
+      Outbound webhook integrations driven by W&B automations. Customers
+      register endpoints that W&B POSTs to when configured events fire
+      (artifact created, alias added, run state changes, registry events).
+    humanURL: https://docs.wandb.ai/guides/automations/
+    baseURL: customer-configured
+    tags:
+      - Webhooks
+      - Automations
+      - Events
+    properties:
+      - type: Documentation
+        url: https://docs.wandb.ai/guides/automations/
+common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/wandbai
+  - type: Website
+    url: https://wandb.ai/
+  - type: Documentation
+    url: https://docs.wandb.ai/
+  - type: GitHub
+    url: https://github.com/wandb
+  - type: Weave
+    url: https://weave-docs.wandb.ai/
+  - type: Pricing
+    url: https://wandb.ai/site/pricing/
+  - type: Parent
+    url: https://www.coreweave.com/
+  - type: Plans
+    url: plans/wandb-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/wandb-rate-limits.yml
+  - type: FinOps
+    url: finops/wandb-finops.yml
+integrations:
+  - name: PyTorch
+  - name: TensorFlow
+  - name: Hugging Face
+  - name: Keras
+  - name: scikit-learn
+  - name: OpenAI
+  - name: Anthropic
+  - name: LangChain
+  - name: LlamaIndex
+  - name: Slack
+  - name: GitHub
+  - name: Kubernetes
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
