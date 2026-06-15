@@ -1,0 +1,666 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FastAPI",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Server Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://trace.wandb.ai/server_info",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Server Info"
+        },
+        {
+          "info": {
+            "name": "Read Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://trace.wandb.ai/health",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Read Root"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Calls",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Call Start",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/call/start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Call Start"
+        },
+        {
+          "info": {
+            "name": "Call End",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/call/end",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Call End"
+        },
+        {
+          "info": {
+            "name": "Call Start Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/call/upsert_batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Call Start Batch"
+        },
+        {
+          "info": {
+            "name": "Calls Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/calls/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Calls Delete"
+        },
+        {
+          "info": {
+            "name": "Call Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/call/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Call Update"
+        },
+        {
+          "info": {
+            "name": "Call Read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/call/read",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Call Read"
+        },
+        {
+          "info": {
+            "name": "Calls Query Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/calls/query_stats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Calls Query Stats"
+        },
+        {
+          "info": {
+            "name": "Calls Query Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/calls/stream_query",
+            "headers": [
+              {
+                "name": "accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Calls Query Stream"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obj Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/obj/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Obj Create"
+        },
+        {
+          "info": {
+            "name": "Obj Read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/obj/read",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Obj Read"
+        },
+        {
+          "info": {
+            "name": "Objs Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/objs/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Objs Query"
+        },
+        {
+          "info": {
+            "name": "Obj Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/obj/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Obj Delete"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Table Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Create"
+        },
+        {
+          "info": {
+            "name": "Table Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Update"
+        },
+        {
+          "info": {
+            "name": "Table Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Query"
+        },
+        {
+          "info": {
+            "name": "Table Query Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/query_stats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Query Stats"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Table Query Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/query_stream",
+            "headers": [
+              {
+                "name": "accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Query Stream"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Refs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Refs Read Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/refs/read_batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Refs Read Batch"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "File Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/file/create",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "File Create"
+        },
+        {
+          "info": {
+            "name": "File Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/file/content",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "File Content"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Costs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cost Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/cost/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Cost Create"
+        },
+        {
+          "info": {
+            "name": "Cost Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/cost/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Cost Query"
+        },
+        {
+          "info": {
+            "name": "Cost Purge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/cost/purge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Cost Purge"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Feedback",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Feedback Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/feedback/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add feedback to a call or object."
+        },
+        {
+          "info": {
+            "name": "Feedback Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/feedback/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Query for feedback."
+        },
+        {
+          "info": {
+            "name": "Feedback Purge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/feedback/purge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Permanently delete feedback."
+        },
+        {
+          "info": {
+            "name": "Feedback Replace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/feedback/replace",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Feedback Replace"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
