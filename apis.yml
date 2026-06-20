@@ -14,7 +14,7 @@ description: >-
   (isolated code execution). The platform exposes a Python SDK, a public REST
   API, and a GraphQL API at api.wandb.ai, with CLI tooling and webhook
   integrations. W&B was acquired by CoreWeave in 2025.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - MLOps
 - Experiment Tracking
