@@ -164,7 +164,7 @@ common:
   url: rate-limits/wandb-rate-limits.yml
 - type: FinOps
   url: finops/wandb-finops.yml
-- type: LLMsTxt
+- type: LlmsText
   url: https://docs.wandb.ai/llms.txt
 integrations:
 - name: PyTorch
