@@ -144,6 +144,12 @@ apis:
   - type: Documentation
     url: https://docs.wandb.ai/guides/automations/
 common:
+- type: VulnerabilityDisclosure
+  url: security/wandb-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/wandb-domain-security.yml
+- type: Authentication
+  url: authentication/wandb-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/wandbai
 - type: Website
@@ -166,6 +172,8 @@ common:
   url: finops/wandb-finops.yml
 - type: LlmsText
   url: https://docs.wandb.ai/llms.txt
+- type: Blog
+  url: https://wandb.ai/fully-connected
 integrations:
 - name: PyTorch
 - name: TensorFlow
