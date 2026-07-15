@@ -144,6 +144,8 @@ apis:
   - type: Documentation
     url: https://docs.wandb.ai/guides/automations/
 common:
+- type: AgenticAccess
+  url: agentic-access/wandb-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/wandb-vulnerability-disclosure.yml
 - type: DomainSecurity
