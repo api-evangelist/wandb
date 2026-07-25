@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: Fast Calls Service API
+  version: 0.1.0
+servers:
+- url: https://trace.wandb.ai
+tags:
+- name: Service
+paths:
+  /server_info:
+    get:
+      tags:
+      - Service
+      summary: Server Info
+      operationId: server_info_server_info_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerInfoRes'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+  /health:
+    get:
+      tags:
+      - Service
+      summary: Read Root
+      operationId: read_root_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Read Root Health Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ServerInfoRes:
+      properties:
+        min_required_weave_python_version:
+          type: string
+          title: Min Required Weave Python Version
+      type: object
+      required:
+      - min_required_weave_python_version
+      title: ServerInfoRes
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic

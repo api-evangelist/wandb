@@ -1,0 +1,710 @@
+openapi: 3.1.0
+info:
+  title: Fast Calls Costs API
+  version: 0.1.0
+servers:
+- url: https://trace.wandb.ai
+tags:
+- name: Costs
+paths:
+  /cost/create:
+    post:
+      tags:
+      - Costs
+      summary: Cost Create
+      operationId: cost_create_cost_create_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostCreateReq'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostCreateRes'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+  /cost/query:
+    post:
+      tags:
+      - Costs
+      summary: Cost Query
+      operationId: cost_query_cost_query_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostQueryReq'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostQueryRes'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+  /cost/purge:
+    post:
+      tags:
+      - Costs
+      summary: Cost Purge
+      operationId: cost_purge_cost_purge_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostPurgeReq'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostPurgeRes'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EqOperation:
+      properties:
+        $eq:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: $Eq
+      type: object
+      required:
+      - $eq
+      title: EqOperation
+    ConvertOperation:
+      properties:
+        $convert:
+          $ref: '#/components/schemas/ConvertSpec'
+      type: object
+      required:
+      - $convert
+      title: ConvertOperation
+    CostQueryOutput:
+      properties:
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          examples:
+          - 2341-asdf-asdf
+        llm_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Llm Id
+          examples:
+          - gpt4
+        prompt_token_cost:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Prompt Token Cost
+          examples:
+          - 1
+        completion_token_cost:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Completion Token Cost
+          examples:
+          - 1
+        prompt_token_cost_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Token Cost Unit
+          examples:
+          - USD
+        completion_token_cost_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Completion Token Cost Unit
+          examples:
+          - USD
+        effective_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Effective Date
+          examples:
+          - '2024-01-01T00:00:00Z'
+        provider_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider Id
+          examples:
+          - openai
+      type: object
+      title: CostQueryOutput
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GtOperation:
+      properties:
+        $gt:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: $Gt
+      type: object
+      required:
+      - $gt
+      title: GtOperation
+    Query:
+      properties:
+        $expr:
+          anyOf:
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: $Expr
+      type: object
+      required:
+      - $expr
+      title: Query
+    CostQueryRes:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/CostQueryOutput'
+          type: array
+          title: Results
+      type: object
+      required:
+      - results
+      title: CostQueryRes
+    AndOperation:
+      properties:
+        $and:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          title: $And
+      type: object
+      required:
+      - $and
+      title: AndOperation
+    CostCreateRes:
+      properties:
+        ids:
+          items:
+            prefixItems:
+            - type: string
+            - type: string
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Ids
+      type: object
+      required:
+      - ids
+      title: CostCreateRes
+    NotOperation:
+      properties:
+        $not:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 1
+          minItems: 1
+          title: $Not
+      type: object
+      required:
+      - $not
+      title: NotOperation
+    CostCreateReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+          examples:
+          - entity/project
+        costs:
+          additionalProperties:
+            $ref: '#/components/schemas/CostCreateInput'
+          type: object
+          title: Costs
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
+      type: object
+      required:
+      - project_id
+      - costs
+      title: CostCreateReq
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
+    InOperation:
+      properties:
+        $in:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/LiteralOperation'
+              - $ref: '#/components/schemas/GetFieldOperator'
+              - $ref: '#/components/schemas/ConvertOperation'
+              - $ref: '#/components/schemas/AndOperation'
+              - $ref: '#/components/schemas/OrOperation'
+              - $ref: '#/components/schemas/NotOperation'
+              - $ref: '#/components/schemas/EqOperation'
+              - $ref: '#/components/schemas/GtOperation'
+              - $ref: '#/components/schemas/GteOperation'
+              - $ref: '#/components/schemas/InOperation'
+              - $ref: '#/components/schemas/ContainsOperation'
+            type: array
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: $In
+      type: object
+      required:
+      - $in
+      title: InOperation
+    CostQueryReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+          examples:
+          - entity/project
+        fields:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Fields
+          examples:
+          - - id
+            - llm_id
+            - prompt_token_cost
+            - completion_token_cost
+            - prompt_token_cost_unit
+            - completion_token_cost_unit
+            - effective_date
+            - provider_id
+        query:
+          anyOf:
+          - $ref: '#/components/schemas/Query'
+          - type: 'null'
+        sort_by:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SortBy'
+            type: array
+          - type: 'null'
+          title: Sort By
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          examples:
+          - 10
+        offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Offset
+          examples:
+          - 0
+      type: object
+      required:
+      - project_id
+      title: CostQueryReq
+    OrOperation:
+      properties:
+        $or:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          title: $Or
+      type: object
+      required:
+      - $or
+      title: OrOperation
+    GteOperation:
+      properties:
+        $gte:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: $Gte
+      type: object
+      required:
+      - $gte
+      title: GteOperation
+    ContainsSpec:
+      properties:
+        input:
+          anyOf:
+          - $ref: '#/components/schemas/LiteralOperation'
+          - $ref: '#/components/schemas/GetFieldOperator'
+          - $ref: '#/components/schemas/ConvertOperation'
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: Input
+        substr:
+          anyOf:
+          - $ref: '#/components/schemas/LiteralOperation'
+          - $ref: '#/components/schemas/GetFieldOperator'
+          - $ref: '#/components/schemas/ConvertOperation'
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: Substr
+        case_insensitive:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Case Insensitive
+          default: false
+      type: object
+      required:
+      - input
+      - substr
+      title: ContainsSpec
+    GetFieldOperator:
+      properties:
+        $getField:
+          type: string
+          title: $Getfield
+      type: object
+      required:
+      - $getField
+      title: GetFieldOperator
+    CostCreateInput:
+      properties:
+        prompt_token_cost:
+          type: number
+          title: Prompt Token Cost
+        completion_token_cost:
+          type: number
+          title: Completion Token Cost
+        prompt_token_cost_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Token Cost Unit
+          description: The unit of the cost for the prompt tokens
+          default: USD
+        completion_token_cost_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Completion Token Cost Unit
+          description: The unit of the cost for the completion tokens
+          default: USD
+        effective_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Effective Date
+          description: The date after which the cost is effective for, will default to the current date if not provided
+        provider_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider Id
+          description: The provider of the LLM, e.g. 'openai' or 'mistral'. If not provided, the provider_id will be set to 'default'
+      type: object
+      required:
+      - prompt_token_cost
+      - completion_token_cost
+      title: CostCreateInput
+    ContainsOperation:
+      properties:
+        $contains:
+          $ref: '#/components/schemas/ContainsSpec'
+      type: object
+      required:
+      - $contains
+      title: ContainsOperation
+    ConvertSpec:
+      properties:
+        input:
+          anyOf:
+          - $ref: '#/components/schemas/LiteralOperation'
+          - $ref: '#/components/schemas/GetFieldOperator'
+          - $ref: '#/components/schemas/ConvertOperation'
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: Input
+        to:
+          type: string
+          enum:
+          - double
+          - string
+          - int
+          - bool
+          - exists
+          title: To
+      type: object
+      required:
+      - input
+      - to
+      title: ConvertSpec
+    CostPurgeRes:
+      properties: {}
+      type: object
+      title: CostPurgeRes
+    LiteralOperation:
+      properties:
+        $literal:
+          anyOf:
+          - type: string
+          - type: integer
+          - type: number
+          - type: boolean
+          - additionalProperties:
+              $ref: '#/components/schemas/LiteralOperation'
+            type: object
+          - items:
+              $ref: '#/components/schemas/LiteralOperation'
+            type: array
+          - type: 'null'
+          title: $Literal
+      type: object
+      required:
+      - $literal
+      title: LiteralOperation
+    CostPurgeReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+          examples:
+          - entity/project
+        query:
+          $ref: '#/components/schemas/Query'
+      type: object
+      required:
+      - project_id
+      - query
+      title: CostPurgeReq
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic

@@ -1,0 +1,93 @@
+openapi: 3.1.0
+info:
+  title: Fast Calls Refs API
+  version: 0.1.0
+servers:
+- url: https://trace.wandb.ai
+tags:
+- name: Refs
+paths:
+  /refs/read_batch:
+    post:
+      tags:
+      - Refs
+      summary: Refs Read Batch
+      operationId: refs_read_batch_refs_read_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefsReadBatchReq'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefsReadBatchRes'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+components:
+  schemas:
+    RefsReadBatchReq:
+      properties:
+        refs:
+          items:
+            type: string
+          type: array
+          title: Refs
+      type: object
+      required:
+      - refs
+      title: RefsReadBatchReq
+    RefsReadBatchRes:
+      properties:
+        vals:
+          items: {}
+          type: array
+          title: Vals
+      type: object
+      required:
+      - vals
+      title: RefsReadBatchRes
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic

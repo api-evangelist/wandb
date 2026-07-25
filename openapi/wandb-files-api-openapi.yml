@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: Fast Calls Files API
+  version: 0.1.0
+servers:
+- url: https://trace.wandb.ai
+tags:
+- name: Files
+paths:
+  /file/create:
+    post:
+      tags:
+      - Files
+      summary: File Create
+      operationId: file_create_file_create_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_file_create_file_create_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileCreateRes'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+  /file/content:
+    post:
+      tags:
+      - Files
+      summary: File Content
+      operationId: file_content_file_content_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileContentReadReq'
+        required: true
+      responses:
+        '200':
+          description: Binary file content stream
+          content:
+            application/octet-stream: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBasic: []
+components:
+  schemas:
+    FileCreateRes:
+      properties:
+        digest:
+          type: string
+          title: Digest
+      type: object
+      required:
+      - digest
+      title: FileCreateRes
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_file_create_file_create_post:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        file:
+          type: string
+          format: binary
+          title: File
+      type: object
+      required:
+      - project_id
+      - file
+      title: Body_file_create_file_create_post
+    FileContentReadReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        digest:
+          type: string
+          title: Digest
+      type: object
+      required:
+      - project_id
+      - digest
+      title: FileContentReadReq
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic

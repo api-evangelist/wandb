@@ -1,0 +1,168 @@
+openapi: 3.1.0
+info:
+  title: Fast Calls Table API
+  version: 0.1.0
+servers:
+- url: https://trace.wandb.ai
+tags:
+- name: Table
+paths:
+  /table/query_stream:
+    post:
+      summary: Table Query Stream
+      operationId: table_query_stream_table_query_stream_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: accept
+        in: header
+        required: false
+        schema:
+          type: string
+          default: application/jsonl
+          title: Accept
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TableQueryReq'
+      responses:
+        '200':
+          description: Stream of data in JSONL format
+          content:
+            application/jsonl:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Schema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Table
+components:
+  schemas:
+    TableQueryReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project
+          examples:
+          - my_entity/my_project
+        digest:
+          type: string
+          title: Digest
+          description: The digest of the table to query
+          examples:
+          - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/TableRowFilter'
+          - type: 'null'
+          description: Optional filter to apply to the query. See `TableRowFilter` for more details.
+          examples:
+          - row_digests:
+            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          description: Maximum number of rows to return
+          examples:
+          - 100
+        offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Offset
+          description: Number of rows to skip before starting to return rows
+          examples:
+          - 10
+        sort_by:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SortBy'
+            type: array
+          - type: 'null'
+          title: Sort By
+          description: List of fields to sort by. Fields can be dot-separated to access dictionary values. No sorting uses the default table order (insertion order).
+          examples:
+          - - field: col_a.prop_b
+              order: desc
+      type: object
+      required:
+      - project_id
+      - digest
+      title: TableQueryReq
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TableRowFilter:
+      properties:
+        row_digests:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Row Digests
+          description: List of row digests to filter by
+          examples:
+          - - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+      type: object
+      title: TableRowFilter
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
