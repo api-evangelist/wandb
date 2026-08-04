@@ -1,0 +1,33 @@
+{
+  "provider": "wandb",
+  "sources": [
+    "wandb-calls-api-openapi.yml",
+    "wandb-costs-api-openapi.yml",
+    "wandb-feedback-api-openapi.yml",
+    "wandb-files-api-openapi.yml",
+    "wandb-objects-api-openapi.yml",
+    "wandb-refs-api-openapi.yml",
+    "wandb-service-api-openapi.yml",
+    "wandb-table-api-openapi.yml",
+    "wandb-tables-api-openapi.yml"
+  ],
+  "outputs": [
+    "wandb-calls-api-openapi.yml",
+    "wandb-costs-api-openapi.yml",
+    "wandb-feedback-api-openapi.yml",
+    "wandb-files-api-openapi.yml",
+    "wandb-objects-api-openapi.yml",
+    "wandb-refs-api-openapi.yml",
+    "wandb-service-api-openapi.yml",
+    "wandb-table-api-openapi.yml",
+    "wandb-tables-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "wandb-calls-api-openapi.yml: dangling $ref: #/components/schemas/Schema",
+    "wandb-table-api-openapi.yml: dangling $ref: #/components/schemas/Schema"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
