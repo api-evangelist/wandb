@@ -241,6 +241,9 @@ apis:
   - type: OpenAPI
     url: openapi/wandb-tables-api-openapi.yml
 common:
+- type: License
+  name: Apache-2.0
+  url: https://github.com/wandb/weave/blob/master/LICENSE
 - type: AgenticAccess
   url: agentic-access/wandb-agentic-access.yml
 - type: VulnerabilityDisclosure
