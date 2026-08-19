@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fast Calls Objects API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obj Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/obj/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Obj Create"
+        },
+        {
+          "info": {
+            "name": "Obj Read",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/obj/read",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Obj Read"
+        },
+        {
+          "info": {
+            "name": "Objs Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/objs/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Objs Query"
+        },
+        {
+          "info": {
+            "name": "Obj Delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/obj/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Obj Delete"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

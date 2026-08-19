@@ -1,0 +1,38 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fast Calls Refs API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Refs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Refs Read Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/refs/read_batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Refs Read Batch"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fast Calls Tables API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Table Create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Create"
+        },
+        {
+          "info": {
+            "name": "Table Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Update"
+        },
+        {
+          "info": {
+            "name": "Table Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Query"
+        },
+        {
+          "info": {
+            "name": "Table Query Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/query_stats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Query Stats"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

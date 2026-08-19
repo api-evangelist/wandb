@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fast Calls Table API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Table",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Table Query Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://trace.wandb.ai/table/query_stream",
+            "headers": [
+              {
+                "name": "accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Table Query Stream"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

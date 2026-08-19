@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fast Calls Service API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Server Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://trace.wandb.ai/server_info",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Server Info"
+        },
+        {
+          "info": {
+            "name": "Read Root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://trace.wandb.ai/health",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Read Root"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

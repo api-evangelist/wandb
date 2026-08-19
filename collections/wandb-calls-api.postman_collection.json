@@ -1,0 +1,1340 @@
+{
+  "item": [
+    {
+      "id": "7c463a76-48fe-4675-ba43-ef0f17a0da09",
+      "name": "Calls",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f84d4131-54df-4967-b52e-6cb3a7ab8767",
+          "name": "Call Start",
+          "request": {
+            "name": "Call Start",
+            "description": {},
+            "url": {
+              "path": [
+                "call",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": {\n    \"project_id\": \"<string>\",\n    \"op_name\": \"<string>\",\n    \"started_at\": \"<dateTime>\",\n    \"attributes\": \"<object>\",\n    \"inputs\": \"<object>\",\n    \"id\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"trace_id\": \"<string>\",\n    \"parent_id\": \"<string>\",\n    \"wb_user_id\": \"<string>\",\n    \"wb_run_id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9fb53d6-7cd8-4300-9fa5-91a2e8423ca9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": {\n    \"project_id\": \"string\",\n    \"op_name\": \"string\",\n    \"started_at\": \"1972-12-15T03:19:24.328Z\",\n    \"attributes\": {},\n    \"inputs\": {},\n    \"id\": \"string\",\n    \"display_name\": \"string\",\n    \"trace_id\": \"string\",\n    \"parent_id\": \"string\",\n    \"wb_user_id\": \"string\",\n    \"wb_run_id\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93a104f1-b14b-4a5b-b6c1-c9ff695499ca",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": {\n    \"project_id\": \"string\",\n    \"op_name\": \"string\",\n    \"started_at\": \"1972-12-15T03:19:24.328Z\",\n    \"attributes\": {},\n    \"inputs\": {},\n    \"id\": \"string\",\n    \"display_name\": \"string\",\n    \"trace_id\": \"string\",\n    \"parent_id\": \"string\",\n    \"wb_user_id\": \"string\",\n    \"wb_run_id\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "268e2b4e-7839-4dbd-b88f-a6d1cc2a7743",
+          "name": "Call End",
+          "request": {
+            "name": "Call End",
+            "description": {},
+            "url": {
+              "path": [
+                "call",
+                "end"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"end\": {\n    \"project_id\": \"<string>\",\n    \"id\": \"<string>\",\n    \"ended_at\": \"<dateTime>\",\n    \"summary\": {\n      \"usage\": {\n        \"key_0\": {\n          \"prompt_tokens\": \"<integer>\",\n          \"input_tokens\": \"<integer>\",\n          \"completion_tokens\": \"<integer>\",\n          \"output_tokens\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"total_tokens\": \"<integer>\"\n        },\n        \"key_1\": {\n          \"prompt_tokens\": \"<integer>\",\n          \"input_tokens\": \"<integer>\",\n          \"completion_tokens\": \"<integer>\",\n          \"output_tokens\": \"<integer>\",\n          \"requests\": \"<integer>\",\n          \"total_tokens\": \"<integer>\"\n        }\n      },\n      \"key_0\": 2876.302898563564\n    },\n    \"exception\": \"<string>\",\n    \"output\": {}\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c18627b9-632c-42b3-a517-86b0ece105b2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "end"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end\": {\n    \"project_id\": \"string\",\n    \"id\": \"string\",\n    \"ended_at\": \"1964-10-11T16:57:58.813Z\",\n    \"summary\": {\n      \"usage\": {\n        \"key_0\": {\n          \"prompt_tokens\": 1421,\n          \"input_tokens\": 4875,\n          \"completion_tokens\": 6040,\n          \"output_tokens\": 9452,\n          \"requests\": 4543,\n          \"total_tokens\": 2817\n        },\n        \"key_1\": {\n          \"prompt_tokens\": 9412,\n          \"input_tokens\": 9613,\n          \"completion_tokens\": 6062,\n          \"output_tokens\": 3984,\n          \"requests\": 5717,\n          \"total_tokens\": 4551\n        },\n        \"key_2\": {\n          \"prompt_tokens\": 9778,\n          \"input_tokens\": 9183,\n          \"completion_tokens\": 3010,\n          \"output_tokens\": 5052,\n          \"requests\": 9056,\n          \"total_tokens\": 4673\n        }\n      },\n      \"key_0\": 3016,\n      \"key_1\": 9421.62014523257\n    },\n    \"exception\": \"string\",\n    \"output\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a632132c-1dfe-4678-91d2-956e83333705",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "end"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end\": {\n    \"project_id\": \"string\",\n    \"id\": \"string\",\n    \"ended_at\": \"1964-10-11T16:57:58.813Z\",\n    \"summary\": {\n      \"usage\": {\n        \"key_0\": {\n          \"prompt_tokens\": 1421,\n          \"input_tokens\": 4875,\n          \"completion_tokens\": 6040,\n          \"output_tokens\": 9452,\n          \"requests\": 4543,\n          \"total_tokens\": 2817\n        },\n        \"key_1\": {\n          \"prompt_tokens\": 9412,\n          \"input_tokens\": 9613,\n          \"completion_tokens\": 6062,\n          \"output_tokens\": 3984,\n          \"requests\": 5717,\n          \"total_tokens\": 4551\n        },\n        \"key_2\": {\n          \"prompt_tokens\": 9778,\n          \"input_tokens\": 9183,\n          \"completion_tokens\": 3010,\n          \"output_tokens\": 5052,\n          \"requests\": 9056,\n          \"total_tokens\": 4673\n        }\n      },\n      \"key_0\": 3016,\n      \"key_1\": 9421.62014523257\n    },\n    \"exception\": \"string\",\n    \"output\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35fec65c-46ea-410e-8e0f-f793d8f0a52a",
+          "name": "Call Start Batch",
+          "request": {
+            "name": "Call Start Batch",
+            "description": {},
+            "url": {
+              "path": [
+                "call",
+                "upsert_batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"batch\": [\n    {\n      \"req\": {\n        \"start\": {\n          \"project_id\": \"<string>\",\n          \"op_name\": \"<string>\",\n          \"started_at\": \"<dateTime>\",\n          \"attributes\": \"<object>\",\n          \"inputs\": \"<object>\",\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"trace_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_run_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mode\": \"start\"\n    },\n    {\n      \"req\": {\n        \"start\": {\n          \"project_id\": \"<string>\",\n          \"op_name\": \"<string>\",\n          \"started_at\": \"<dateTime>\",\n          \"attributes\": \"<object>\",\n          \"inputs\": \"<object>\",\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"trace_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_run_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mode\": \"start\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79a0bdf8-b484-4932-9657-34ef5647708c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "upsert_batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"req\": {\n        \"start\": {\n          \"project_id\": \"string\",\n          \"op_name\": \"string\",\n          \"started_at\": \"1997-02-08T19:50:51.503Z\",\n          \"attributes\": {},\n          \"inputs\": {},\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"trace_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_run_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mode\": \"start\"\n    },\n    {\n      \"req\": {\n        \"start\": {\n          \"project_id\": \"string\",\n          \"op_name\": \"string\",\n          \"started_at\": \"2004-11-16T17:49:41.187Z\",\n          \"attributes\": {},\n          \"inputs\": {},\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"trace_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_run_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mode\": \"start\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"res\": [\n    {\n      \"id\": \"string\",\n      \"trace_id\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"trace_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ccdc2e5-faed-437f-8031-83affff6ef12",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "upsert_batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"batch\": [\n    {\n      \"req\": {\n        \"start\": {\n          \"project_id\": \"string\",\n          \"op_name\": \"string\",\n          \"started_at\": \"1997-02-08T19:50:51.503Z\",\n          \"attributes\": {},\n          \"inputs\": {},\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"trace_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_run_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mode\": \"start\"\n    },\n    {\n      \"req\": {\n        \"start\": {\n          \"project_id\": \"string\",\n          \"op_name\": \"string\",\n          \"started_at\": \"2004-11-16T17:49:41.187Z\",\n          \"attributes\": {},\n          \"inputs\": {},\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"trace_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wb_run_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"mode\": \"start\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c757cc2c-4ab5-4ada-a385-adf7b0ac537d",
+          "name": "Calls Delete",
+          "request": {
+            "name": "Calls Delete",
+            "description": {},
+            "url": {
+              "path": [
+                "calls",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"<string>\",\n  \"call_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wb_user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e974b2d7-f975-444f-9bfe-a6d568ae8009",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"call_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wb_user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da1494b7-15e6-4c82-b245-c6676ddc543f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"call_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wb_user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd10d599-edc7-46dd-b08e-5df73aaabda3",
+          "name": "Call Update",
+          "request": {
+            "name": "Call Update",
+            "description": {},
+            "url": {
+              "path": [
+                "call",
+                "update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"<string>\",\n  \"call_id\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"wb_user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b41ecc4-9459-42fa-8fbc-b7bf8b459b9d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"call_id\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"wb_user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdba9e95-6504-4189-8df2-78e8b7abe6ae",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"call_id\": \"<string>\",\n  \"display_name\": \"<string>\",\n  \"wb_user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d9e3280-873f-44b0-9923-83e824ff5233",
+          "name": "Call Read",
+          "request": {
+            "name": "Call Read",
+            "description": {},
+            "url": {
+              "path": [
+                "call",
+                "read"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"<string>\",\n  \"id\": \"<string>\",\n  \"include_costs\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e7805742-118c-428f-9d1f-c427ae3ef0f2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"id\": \"<string>\",\n  \"include_costs\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"call\": {\n    \"id\": \"string\",\n    \"project_id\": \"string\",\n    \"op_name\": \"string\",\n    \"trace_id\": \"string\",\n    \"started_at\": \"2007-03-03T11:49:05.133Z\",\n    \"attributes\": {},\n    \"inputs\": {},\n    \"display_name\": \"string\",\n    \"parent_id\": \"string\",\n    \"ended_at\": \"2009-06-18T07:00:34.650Z\",\n    \"exception\": \"string\",\n    \"output\": {},\n    \"summary\": {},\n    \"wb_user_id\": \"string\",\n    \"wb_run_id\": \"string\",\n    \"deleted_at\": \"2007-06-14T17:00:25.957Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "833faff8-c271-47e3-8c9f-d72d74de82aa",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "call",
+                    "read"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"id\": \"<string>\",\n  \"include_costs\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ec53909-d9f7-46d9-bdfe-415ee5c20fa0",
+          "name": "Calls Query Stats",
+          "request": {
+            "name": "Calls Query Stats",
+            "description": {},
+            "url": {
+              "path": [
+                "calls",
+                "query_stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"<string>\",\n  \"filter\": {\n    \"op_names\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"input_refs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"output_refs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"parent_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"trace_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"call_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"trace_roots_only\": \"<boolean>\",\n    \"wb_user_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"wb_run_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"query\": {\n    \"$expr\": {\n      \"$and\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "40e662f7-8e37-4801-be62-d6c47bf4cac1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "query_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"filter\": {\n    \"op_names\": [\n      \"string\",\n      \"string\"\n    ],\n    \"input_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"output_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"parent_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"call_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_roots_only\": true,\n    \"wb_user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"wb_run_ids\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"query\": {\n    \"$expr\": {\n      \"$and\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 6858\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da31c6ab-df6b-4c50-af97-335a4e4f527f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "query_stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"filter\": {\n    \"op_names\": [\n      \"string\",\n      \"string\"\n    ],\n    \"input_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"output_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"parent_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"call_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_roots_only\": true,\n    \"wb_user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"wb_run_ids\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"query\": {\n    \"$expr\": {\n      \"$and\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9414950d-e312-47c4-9b2e-c57e566f639b",
+          "name": "Calls Query Stream",
+          "request": {
+            "name": "Calls Query Stream",
+            "description": {},
+            "url": {
+              "path": [
+                "calls",
+                "stream_query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/jsonl"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"<string>\",\n  \"filter\": {\n    \"op_names\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"input_refs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"output_refs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"parent_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"trace_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"call_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"trace_roots_only\": \"<boolean>\",\n    \"wb_user_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"wb_run_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\",\n  \"sort_by\": [\n    {\n      \"field\": \"<string>\",\n      \"direction\": \"<string>\"\n    },\n    {\n      \"field\": \"<string>\",\n      \"direction\": \"<string>\"\n    }\n  ],\n  \"query\": {\n    \"$expr\": {\n      \"$and\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  },\n  \"include_costs\": \"<boolean>\",\n  \"include_feedback\": \"<boolean>\",\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expand_columns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60349994-2f0e-4a57-b482-31d70dfe79dc",
+              "name": "Stream of data in JSONL format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "stream_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "accept",
+                    "value": "application/jsonl",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/jsonl"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"filter\": {\n    \"op_names\": [\n      \"string\",\n      \"string\"\n    ],\n    \"input_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"output_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"parent_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"call_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_roots_only\": true,\n    \"wb_user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"wb_run_ids\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\",\n  \"sort_by\": [\n    {\n      \"field\": \"string\",\n      \"direction\": \"asc\"\n    },\n    {\n      \"field\": \"string\",\n      \"direction\": \"desc\"\n    }\n  ],\n  \"query\": {\n    \"$expr\": {\n      \"$and\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  },\n  \"include_costs\": \"<boolean>\",\n  \"include_feedback\": \"<boolean>\",\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expand_columns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/jsonl"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d941f0a-b664-42e7-9b54-60c496e6a213",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls",
+                    "stream_query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "key": "accept",
+                    "value": "application/jsonl",
+                    "description": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project_id\": \"<string>\",\n  \"filter\": {\n    \"op_names\": [\n      \"string\",\n      \"string\"\n    ],\n    \"input_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"output_refs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"parent_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"call_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"trace_roots_only\": true,\n    \"wb_user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"wb_run_ids\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\",\n  \"sort_by\": [\n    {\n      \"field\": \"string\",\n      \"direction\": \"asc\"\n    },\n    {\n      \"field\": \"string\",\n      \"direction\": \"desc\"\n    }\n  ],\n  \"query\": {\n    \"$expr\": {\n      \"$and\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    }\n  },\n  \"include_costs\": \"<boolean>\",\n  \"include_feedback\": \"<boolean>\",\n  \"columns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expand_columns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://trace.wandb.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "157a26b7-ec91-4584-a243-0c047226e4a8",
+    "name": "Fast Calls API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
