@@ -38,7 +38,7 @@ tags:
 - Tracing
 created: '2026-05-23'
 modified: '2026-05-23'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: wandb:graphql
   name: W&B GraphQL API
