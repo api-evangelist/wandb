@@ -261,6 +261,11 @@ apis:
   - type: OpenAPI
     url: openapi/wandb-tables-api-openapi.yml
 common:
+- type: ParentCompany
+  url: https://apis.io/providers/coreweave/
+  name: CoreWeave
+  x-relationship: acquired
+  x-evidence: "W&B was acquired by CoreWeave in 2025."
 - type: IssueTracker
   url: https://github.com/wandb/weave/issues
 - type: Releases
