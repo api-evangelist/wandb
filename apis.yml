@@ -160,7 +160,7 @@ apis:
   baseURL: customer-configured
   tags:
   - Webhook
-  - Automations
+  - Automation
   - Event
   tags_raw:
   - Webhooks
@@ -237,6 +237,8 @@ apis:
   humanURL: https://docs.wandb.ai/ref/python/public-api/api/
   baseURL: https://api.wandb.ai/graphql
   tags:
+  - Services
+  tags_raw:
   - Service
   properties:
   - type: OpenAPI
