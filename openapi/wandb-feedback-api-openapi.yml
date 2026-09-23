@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fast Calls Feedback API
+  title: Fast Feedback API
   version: 0.1.0
 servers:
 - url: https://trace.wandb.ai
@@ -120,17 +120,6 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    FeedbackQueryRes:
-      properties:
-        result:
-          items:
-            type: object
-          type: array
-          title: Result
-      type: object
-      required:
-      - result
-      title: FeedbackQueryRes
     ValidationError:
       properties:
         loc:
@@ -152,6 +141,148 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FeedbackQueryReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+          examples:
+          - entity/project
+        fields:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Fields
+          examples:
+          - - id
+            - feedback_type
+            - payload.note
+        query:
+          anyOf:
+          - $ref: '#/components/schemas/Query'
+          - type: 'null'
+        sort_by:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SortBy'
+            type: array
+          - type: 'null'
+          title: Sort By
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+          examples:
+          - 10
+        offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Offset
+          examples:
+          - 0
+      type: object
+      required:
+      - project_id
+      title: FeedbackQueryReq
+    FeedbackReplaceRes:
+      properties:
+        id:
+          type: string
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        wb_user_id:
+          type: string
+          title: Wb User Id
+        payload:
+          type: object
+          title: Payload
+      type: object
+      required:
+      - id
+      - created_at
+      - wb_user_id
+      - payload
+      title: FeedbackReplaceRes
+    OrOperation:
+      properties:
+        $or:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          title: $Or
+      type: object
+      required:
+      - $or
+      title: OrOperation
+    GetFieldOperator:
+      properties:
+        $getField:
+          type: string
+          title: $Getfield
+      type: object
+      required:
+      - $getField
+      title: GetFieldOperator
+    Query:
+      properties:
+        $expr:
+          anyOf:
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: $Expr
+      type: object
+      required:
+      - $expr
+      title: Query
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
     EqOperation:
       properties:
         $eq:
@@ -188,27 +319,36 @@ components:
       required:
       - $eq
       title: EqOperation
-    ConvertOperation:
+    AndOperation:
       properties:
-        $convert:
-          $ref: '#/components/schemas/ConvertSpec'
+        $and:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          title: $And
       type: object
       required:
-      - $convert
-      title: ConvertOperation
-    FeedbackPurgeRes:
-      properties: {}
-      type: object
-      title: FeedbackPurgeRes
-    HTTPValidationError:
+      - $and
+      title: AndOperation
+    ContainsOperation:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        $contains:
+          $ref: '#/components/schemas/ContainsSpec'
       type: object
-      title: HTTPValidationError
+      required:
+      - $contains
+      title: ContainsOperation
     GtOperation:
       properties:
         $gt:
@@ -245,217 +385,6 @@ components:
       required:
       - $gt
       title: GtOperation
-    Query:
-      properties:
-        $expr:
-          anyOf:
-          - $ref: '#/components/schemas/AndOperation'
-          - $ref: '#/components/schemas/OrOperation'
-          - $ref: '#/components/schemas/NotOperation'
-          - $ref: '#/components/schemas/EqOperation'
-          - $ref: '#/components/schemas/GtOperation'
-          - $ref: '#/components/schemas/GteOperation'
-          - $ref: '#/components/schemas/InOperation'
-          - $ref: '#/components/schemas/ContainsOperation'
-          title: $Expr
-      type: object
-      required:
-      - $expr
-      title: Query
-    AndOperation:
-      properties:
-        $and:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          type: array
-          title: $And
-      type: object
-      required:
-      - $and
-      title: AndOperation
-    NotOperation:
-      properties:
-        $not:
-          prefixItems:
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          type: array
-          maxItems: 1
-          minItems: 1
-          title: $Not
-      type: object
-      required:
-      - $not
-      title: NotOperation
-    SortBy:
-      properties:
-        field:
-          type: string
-          title: Field
-        direction:
-          type: string
-          enum:
-          - asc
-          - desc
-          title: Direction
-      type: object
-      required:
-      - field
-      - direction
-      title: SortBy
-    InOperation:
-      properties:
-        $in:
-          prefixItems:
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          - items:
-              anyOf:
-              - $ref: '#/components/schemas/LiteralOperation'
-              - $ref: '#/components/schemas/GetFieldOperator'
-              - $ref: '#/components/schemas/ConvertOperation'
-              - $ref: '#/components/schemas/AndOperation'
-              - $ref: '#/components/schemas/OrOperation'
-              - $ref: '#/components/schemas/NotOperation'
-              - $ref: '#/components/schemas/EqOperation'
-              - $ref: '#/components/schemas/GtOperation'
-              - $ref: '#/components/schemas/GteOperation'
-              - $ref: '#/components/schemas/InOperation'
-              - $ref: '#/components/schemas/ContainsOperation'
-            type: array
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: $In
-      type: object
-      required:
-      - $in
-      title: InOperation
-    FeedbackPurgeReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-          examples:
-          - entity/project
-        query:
-          $ref: '#/components/schemas/Query'
-      type: object
-      required:
-      - project_id
-      - query
-      title: FeedbackPurgeReq
-    OrOperation:
-      properties:
-        $or:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          type: array
-          title: $Or
-      type: object
-      required:
-      - $or
-      title: OrOperation
-    GteOperation:
-      properties:
-        $gte:
-          prefixItems:
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: $Gte
-      type: object
-      required:
-      - $gte
-      title: GteOperation
-    FeedbackReplaceRes:
-      properties:
-        id:
-          type: string
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        wb_user_id:
-          type: string
-          title: Wb User Id
-        payload:
-          type: object
-          title: Payload
-      type: object
-      required:
-      - id
-      - created_at
-      - wb_user_id
-      - payload
-      title: FeedbackReplaceRes
     FeedbackReplaceReq:
       properties:
         project_id:
@@ -530,6 +459,88 @@ components:
       - payload
       - feedback_id
       title: FeedbackReplaceReq
+    InOperation:
+      properties:
+        $in:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/LiteralOperation'
+              - $ref: '#/components/schemas/GetFieldOperator'
+              - $ref: '#/components/schemas/ConvertOperation'
+              - $ref: '#/components/schemas/AndOperation'
+              - $ref: '#/components/schemas/OrOperation'
+              - $ref: '#/components/schemas/NotOperation'
+              - $ref: '#/components/schemas/EqOperation'
+              - $ref: '#/components/schemas/GtOperation'
+              - $ref: '#/components/schemas/GteOperation'
+              - $ref: '#/components/schemas/InOperation'
+              - $ref: '#/components/schemas/ContainsOperation'
+            type: array
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: $In
+      type: object
+      required:
+      - $in
+      title: InOperation
+    ConvertSpec:
+      properties:
+        input:
+          anyOf:
+          - $ref: '#/components/schemas/LiteralOperation'
+          - $ref: '#/components/schemas/GetFieldOperator'
+          - $ref: '#/components/schemas/ConvertOperation'
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: Input
+        to:
+          type: string
+          enum:
+          - double
+          - string
+          - int
+          - bool
+          - exists
+          title: To
+      type: object
+      required:
+      - input
+      - to
+      title: ConvertSpec
+    FeedbackPurgeReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+          examples:
+          - entity/project
+        query:
+          $ref: '#/components/schemas/Query'
+      type: object
+      required:
+      - project_id
+      - query
+      title: FeedbackPurgeReq
     ContainsSpec:
       properties:
         input:
@@ -571,122 +582,30 @@ components:
       - input
       - substr
       title: ContainsSpec
-    GetFieldOperator:
+    LiteralOperation:
       properties:
-        $getField:
-          type: string
-          title: $Getfield
-      type: object
-      required:
-      - $getField
-      title: GetFieldOperator
-    FeedbackCreateRes:
-      properties:
-        id:
-          type: string
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        wb_user_id:
-          type: string
-          title: Wb User Id
-        payload:
-          type: object
-          title: Payload
-      type: object
-      required:
-      - id
-      - created_at
-      - wb_user_id
-      - payload
-      title: FeedbackCreateRes
-    FeedbackQueryReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-          examples:
-          - entity/project
-        fields:
+        $literal:
           anyOf:
+          - type: string
+          - type: integer
+          - type: number
+          - type: boolean
+          - additionalProperties:
+              $ref: '#/components/schemas/LiteralOperation'
+            type: object
           - items:
-              type: string
+              $ref: '#/components/schemas/LiteralOperation'
             type: array
           - type: 'null'
-          title: Fields
-          examples:
-          - - id
-            - feedback_type
-            - payload.note
-        query:
-          anyOf:
-          - $ref: '#/components/schemas/Query'
-          - type: 'null'
-        sort_by:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/SortBy'
-            type: array
-          - type: 'null'
-          title: Sort By
-        limit:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Limit
-          examples:
-          - 10
-        offset:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Offset
-          examples:
-          - 0
+          title: $Literal
       type: object
       required:
-      - project_id
-      title: FeedbackQueryReq
-    ContainsOperation:
-      properties:
-        $contains:
-          $ref: '#/components/schemas/ContainsSpec'
+      - $literal
+      title: LiteralOperation
+    FeedbackPurgeRes:
+      properties: {}
       type: object
-      required:
-      - $contains
-      title: ContainsOperation
-    ConvertSpec:
-      properties:
-        input:
-          anyOf:
-          - $ref: '#/components/schemas/LiteralOperation'
-          - $ref: '#/components/schemas/GetFieldOperator'
-          - $ref: '#/components/schemas/ConvertOperation'
-          - $ref: '#/components/schemas/AndOperation'
-          - $ref: '#/components/schemas/OrOperation'
-          - $ref: '#/components/schemas/NotOperation'
-          - $ref: '#/components/schemas/EqOperation'
-          - $ref: '#/components/schemas/GtOperation'
-          - $ref: '#/components/schemas/GteOperation'
-          - $ref: '#/components/schemas/InOperation'
-          - $ref: '#/components/schemas/ContainsOperation'
-          title: Input
-        to:
-          type: string
-          enum:
-          - double
-          - string
-          - int
-          - bool
-          - exists
-          title: To
-      type: object
-      required:
-      - input
-      - to
-      title: ConvertSpec
+      title: FeedbackPurgeRes
     FeedbackCreateReq:
       properties:
         project_id:
@@ -757,26 +676,107 @@ components:
       - feedback_type
       - payload
       title: FeedbackCreateReq
-    LiteralOperation:
+    NotOperation:
       properties:
-        $literal:
-          anyOf:
-          - type: string
-          - type: integer
-          - type: number
-          - type: boolean
-          - additionalProperties:
-              $ref: '#/components/schemas/LiteralOperation'
-            type: object
-          - items:
-              $ref: '#/components/schemas/LiteralOperation'
-            type: array
-          - type: 'null'
-          title: $Literal
+        $not:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 1
+          minItems: 1
+          title: $Not
       type: object
       required:
-      - $literal
-      title: LiteralOperation
+      - $not
+      title: NotOperation
+    ConvertOperation:
+      properties:
+        $convert:
+          $ref: '#/components/schemas/ConvertSpec'
+      type: object
+      required:
+      - $convert
+      title: ConvertOperation
+    FeedbackCreateRes:
+      properties:
+        id:
+          type: string
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        wb_user_id:
+          type: string
+          title: Wb User Id
+        payload:
+          type: object
+          title: Payload
+      type: object
+      required:
+      - id
+      - created_at
+      - wb_user_id
+      - payload
+      title: FeedbackCreateRes
+    FeedbackQueryRes:
+      properties:
+        result:
+          items:
+            type: object
+          type: array
+          title: Result
+      type: object
+      required:
+      - result
+      title: FeedbackQueryRes
+    GteOperation:
+      properties:
+        $gte:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: $Gte
+      type: object
+      required:
+      - $gte
+      title: GteOperation
   securitySchemes:
     HTTPBasic:
       type: http

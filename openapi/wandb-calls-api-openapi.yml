@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Fast Calls API
   version: 0.1.0
@@ -235,39 +235,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CallEndRes:
-      properties: {}
-      type: object
-      title: CallEndRes
-    CallsDeleteRes:
-      properties: {}
-      type: object
-      title: CallsDeleteRes
-    CallsQueryStatsReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        filter:
-          anyOf:
-          - $ref: '#/components/schemas/CallsFilter'
-          - type: 'null'
-        query:
-          anyOf:
-          - $ref: '#/components/schemas/Query'
-          - type: 'null'
-      type: object
-      required:
-      - project_id
-      title: CallsQueryStatsReq
-    CallEndReq:
-      properties:
-        end:
-          $ref: '#/components/schemas/EndedCallSchemaForInsert'
-      type: object
-      required:
-      - end
-      title: CallEndReq
     ValidationError:
       properties:
         loc:
@@ -289,128 +256,160 @@ components:
       - msg
       - type
       title: ValidationError
-    EqOperation:
+    CallBatchStartMode:
       properties:
-        $eq:
-          prefixItems:
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
+        mode:
+          type: string
+          title: Mode
+          default: start
+        req:
+          $ref: '#/components/schemas/CallStartReq'
+      type: object
+      required:
+      - req
+      title: CallBatchStartMode
+    CallsDeleteRes:
+      properties: {}
+      type: object
+      title: CallsDeleteRes
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          maxItems: 2
-          minItems: 2
-          title: $Eq
+          title: Detail
       type: object
-      required:
-      - $eq
-      title: EqOperation
-    ConvertOperation:
+      title: HTTPValidationError
+    OrOperation:
       properties:
-        $convert:
-          $ref: '#/components/schemas/ConvertSpec'
-      type: object
-      required:
-      - $convert
-      title: ConvertOperation
-    CallsFilter:
-      properties:
-        op_names:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Op Names
-        input_refs:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Input Refs
-        output_refs:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Output Refs
-        parent_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Parent Ids
-        trace_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Trace Ids
-        call_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Call Ids
-        trace_roots_only:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Trace Roots Only
-        wb_user_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Wb User Ids
-        wb_run_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Wb Run Ids
-      type: object
-      title: CallsFilter
-    CallCreateBatchReq:
-      properties:
-        batch:
+        $or:
           items:
             anyOf:
-            - $ref: '#/components/schemas/CallBatchStartMode'
-            - $ref: '#/components/schemas/CallBatchEndMode'
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
           type: array
-          title: Batch
+          title: $Or
       type: object
       required:
-      - batch
-      title: CallCreateBatchReq
+      - $or
+      title: OrOperation
+    EndedCallSchemaForInsert:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        id:
+          type: string
+          title: Id
+        ended_at:
+          type: string
+          format: date-time
+          title: Ended At
+        exception:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Exception
+        output:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Output
+        summary:
+          $ref: '#/components/schemas/SummaryInsertMap'
+      type: object
+      required:
+      - project_id
+      - id
+      - ended_at
+      - summary
+      title: EndedCallSchemaForInsert
+    GetFieldOperator:
+      properties:
+        $getField:
+          type: string
+          title: $Getfield
+      type: object
+      required:
+      - $getField
+      title: GetFieldOperator
+    Query:
+      properties:
+        $expr:
+          anyOf:
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: $Expr
+      type: object
+      required:
+      - $expr
+      title: Query
+    CallsDeleteReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        call_ids:
+          items:
+            type: string
+          type: array
+          title: Call Ids
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
+      type: object
+      required:
+      - project_id
+      - call_ids
+      title: CallsDeleteReq
+    CallStartRes:
+      properties:
+        id:
+          type: string
+          title: Id
+        trace_id:
+          type: string
+          title: Trace Id
+      type: object
+      required:
+      - id
+      - trace_id
+      title: CallStartRes
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
     CallSchema:
       properties:
         id:
@@ -489,39 +488,9 @@ components:
       - attributes
       - inputs
       title: CallSchema
-    CallsDeleteReq:
+    EqOperation:
       properties:
-        project_id:
-          type: string
-          title: Project Id
-        call_ids:
-          items:
-            type: string
-          type: array
-          title: Call Ids
-        wb_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb User Id
-          description: Do not set directly. Server will automatically populate this field.
-      type: object
-      required:
-      - project_id
-      - call_ids
-      title: CallsDeleteReq
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    GtOperation:
-      properties:
-        $gt:
+        $eq:
           prefixItems:
           - anyOf:
             - $ref: '#/components/schemas/LiteralOperation'
@@ -550,41 +519,81 @@ components:
           type: array
           maxItems: 2
           minItems: 2
-          title: $Gt
+          title: $Eq
       type: object
       required:
-      - $gt
-      title: GtOperation
-    Query:
+      - $eq
+      title: EqOperation
+    CallCreateBatchRes:
       properties:
-        $expr:
-          anyOf:
-          - $ref: '#/components/schemas/AndOperation'
-          - $ref: '#/components/schemas/OrOperation'
-          - $ref: '#/components/schemas/NotOperation'
-          - $ref: '#/components/schemas/EqOperation'
-          - $ref: '#/components/schemas/GtOperation'
-          - $ref: '#/components/schemas/GteOperation'
-          - $ref: '#/components/schemas/InOperation'
-          - $ref: '#/components/schemas/ContainsOperation'
-          title: $Expr
+        res:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/CallStartRes'
+            - $ref: '#/components/schemas/CallEndRes'
+          type: array
+          title: Res
       type: object
       required:
-      - $expr
-      title: Query
-    CallStartRes:
+      - res
+      title: CallCreateBatchRes
+    StartedCallSchemaForInsert:
       properties:
+        project_id:
+          type: string
+          title: Project Id
         id:
-          type: string
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Id
-        trace_id:
+        op_name:
           type: string
+          title: Op Name
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Trace Id
+        parent_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parent Id
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+        attributes:
+          type: object
+          title: Attributes
+        inputs:
+          type: object
+          title: Inputs
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
+        wb_run_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb Run Id
       type: object
       required:
-      - id
-      - trace_id
-      title: CallStartRes
+      - project_id
+      - op_name
+      - started_at
+      - attributes
+      - inputs
+      title: StartedCallSchemaForInsert
     CallsQueryReq:
       properties:
         project_id:
@@ -660,6 +669,39 @@ components:
       required:
       - count
       title: CallsQueryStatsRes
+    CallCreateBatchReq:
+      properties:
+        batch:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/CallBatchStartMode'
+            - $ref: '#/components/schemas/CallBatchEndMode'
+          type: array
+          title: Batch
+      type: object
+      required:
+      - batch
+      title: CallCreateBatchReq
+    CallBatchEndMode:
+      properties:
+        mode:
+          type: string
+          title: Mode
+          default: end
+        req:
+          $ref: '#/components/schemas/CallEndReq'
+      type: object
+      required:
+      - req
+      title: CallBatchEndMode
+    ContainsOperation:
+      properties:
+        $contains:
+          $ref: '#/components/schemas/ContainsSpec'
+      type: object
+      required:
+      - $contains
+      title: ContainsOperation
     AndOperation:
       properties:
         $and:
@@ -682,52 +724,13 @@ components:
       required:
       - $and
       title: AndOperation
-    CallUpdateReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        call_id:
-          type: string
-          title: Call Id
-        display_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Display Name
-        wb_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb User Id
-          description: Do not set directly. Server will automatically populate this field.
+    CallUpdateRes:
+      properties: {}
       type: object
-      required:
-      - project_id
-      - call_id
-      title: CallUpdateReq
-    CallReadReq:
+      title: CallUpdateRes
+    GtOperation:
       properties:
-        project_id:
-          type: string
-          title: Project Id
-        id:
-          type: string
-          title: Id
-        include_costs:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Include Costs
-          default: false
-      type: object
-      required:
-      - project_id
-      - id
-      title: CallReadReq
-    NotOperation:
-      properties:
-        $not:
+        $gt:
           prefixItems:
           - anyOf:
             - $ref: '#/components/schemas/LiteralOperation'
@@ -741,95 +744,60 @@ components:
             - $ref: '#/components/schemas/GteOperation'
             - $ref: '#/components/schemas/InOperation'
             - $ref: '#/components/schemas/ContainsOperation'
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
           type: array
-          maxItems: 1
-          minItems: 1
-          title: $Not
+          maxItems: 2
+          minItems: 2
+          title: $Gt
       type: object
       required:
-      - $not
-      title: NotOperation
-    EndedCallSchemaForInsert:
+      - $gt
+      title: GtOperation
+    LLMUsageSchema:
       properties:
-        project_id:
-          type: string
-          title: Project Id
-        id:
-          type: string
-          title: Id
-        ended_at:
-          type: string
-          format: date-time
-          title: Ended At
-        exception:
+        prompt_tokens:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
-          title: Exception
-        output:
+          title: Prompt Tokens
+        input_tokens:
           anyOf:
-          - {}
+          - type: integer
           - type: 'null'
-          title: Output
-        summary:
-          $ref: '#/components/schemas/SummaryInsertMap'
+          title: Input Tokens
+        completion_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Completion Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Output Tokens
+        requests:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Requests
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
       type: object
-      required:
-      - project_id
-      - id
-      - ended_at
-      - summary
-      title: EndedCallSchemaForInsert
-    CallBatchEndMode:
-      properties:
-        mode:
-          type: string
-          title: Mode
-          default: end
-        req:
-          $ref: '#/components/schemas/CallEndReq'
-      type: object
-      required:
-      - req
-      title: CallBatchEndMode
-    SummaryInsertMap:
-      properties:
-        usage:
-          additionalProperties:
-            $ref: '#/components/schemas/LLMUsageSchema'
-          type: object
-          title: Usage
-      additionalProperties: true
-      type: object
-      title: SummaryInsertMap
-    SortBy:
-      properties:
-        field:
-          type: string
-          title: Field
-        direction:
-          type: string
-          enum:
-          - asc
-          - desc
-          title: Direction
-      type: object
-      required:
-      - field
-      - direction
-      title: SortBy
-    CallBatchStartMode:
-      properties:
-        mode:
-          type: string
-          title: Mode
-          default: start
-        req:
-          $ref: '#/components/schemas/CallStartReq'
-      type: object
-      required:
-      - req
-      title: CallBatchStartMode
+      title: LLMUsageSchema
     InOperation:
       properties:
         $in:
@@ -868,111 +836,44 @@ components:
       required:
       - $in
       title: InOperation
-    OrOperation:
+    CallStartReq:
       properties:
-        $or:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          type: array
-          title: $Or
+        start:
+          $ref: '#/components/schemas/StartedCallSchemaForInsert'
       type: object
       required:
-      - $or
-      title: OrOperation
-    GteOperation:
+      - start
+      title: CallStartReq
+    ConvertSpec:
       properties:
-        $gte:
-          prefixItems:
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          - anyOf:
-            - $ref: '#/components/schemas/LiteralOperation'
-            - $ref: '#/components/schemas/GetFieldOperator'
-            - $ref: '#/components/schemas/ConvertOperation'
-            - $ref: '#/components/schemas/AndOperation'
-            - $ref: '#/components/schemas/OrOperation'
-            - $ref: '#/components/schemas/NotOperation'
-            - $ref: '#/components/schemas/EqOperation'
-            - $ref: '#/components/schemas/GtOperation'
-            - $ref: '#/components/schemas/GteOperation'
-            - $ref: '#/components/schemas/InOperation'
-            - $ref: '#/components/schemas/ContainsOperation'
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: $Gte
+        input:
+          anyOf:
+          - $ref: '#/components/schemas/LiteralOperation'
+          - $ref: '#/components/schemas/GetFieldOperator'
+          - $ref: '#/components/schemas/ConvertOperation'
+          - $ref: '#/components/schemas/AndOperation'
+          - $ref: '#/components/schemas/OrOperation'
+          - $ref: '#/components/schemas/NotOperation'
+          - $ref: '#/components/schemas/EqOperation'
+          - $ref: '#/components/schemas/GtOperation'
+          - $ref: '#/components/schemas/GteOperation'
+          - $ref: '#/components/schemas/InOperation'
+          - $ref: '#/components/schemas/ContainsOperation'
+          title: Input
+        to:
+          type: string
+          enum:
+          - double
+          - string
+          - int
+          - bool
+          - exists
+          title: To
       type: object
       required:
-      - $gte
-      title: GteOperation
-    CallCreateBatchRes:
-      properties:
-        res:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/CallStartRes'
-            - $ref: '#/components/schemas/CallEndRes'
-          type: array
-          title: Res
-      type: object
-      required:
-      - res
-      title: CallCreateBatchRes
-    LLMUsageSchema:
-      properties:
-        prompt_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Prompt Tokens
-        input_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Input Tokens
-        completion_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Completion Tokens
-        output_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Output Tokens
-        requests:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Requests
-        total_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Tokens
-      type: object
-      title: LLMUsageSchema
+      - input
+      - to
+      title: ConvertSpec
     ContainsSpec:
       properties:
         input:
@@ -1014,132 +915,6 @@ components:
       - input
       - substr
       title: ContainsSpec
-    GetFieldOperator:
-      properties:
-        $getField:
-          type: string
-          title: $Getfield
-      type: object
-      required:
-      - $getField
-      title: GetFieldOperator
-    CallStartReq:
-      properties:
-        start:
-          $ref: '#/components/schemas/StartedCallSchemaForInsert'
-      type: object
-      required:
-      - start
-      title: CallStartReq
-    StartedCallSchemaForInsert:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-        op_name:
-          type: string
-          title: Op Name
-        display_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Display Name
-        trace_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace Id
-        parent_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Parent Id
-        started_at:
-          type: string
-          format: date-time
-          title: Started At
-        attributes:
-          type: object
-          title: Attributes
-        inputs:
-          type: object
-          title: Inputs
-        wb_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb User Id
-          description: Do not set directly. Server will automatically populate this field.
-        wb_run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb Run Id
-      type: object
-      required:
-      - project_id
-      - op_name
-      - started_at
-      - attributes
-      - inputs
-      title: StartedCallSchemaForInsert
-    CallUpdateRes:
-      properties: {}
-      type: object
-      title: CallUpdateRes
-    ContainsOperation:
-      properties:
-        $contains:
-          $ref: '#/components/schemas/ContainsSpec'
-      type: object
-      required:
-      - $contains
-      title: ContainsOperation
-    ConvertSpec:
-      properties:
-        input:
-          anyOf:
-          - $ref: '#/components/schemas/LiteralOperation'
-          - $ref: '#/components/schemas/GetFieldOperator'
-          - $ref: '#/components/schemas/ConvertOperation'
-          - $ref: '#/components/schemas/AndOperation'
-          - $ref: '#/components/schemas/OrOperation'
-          - $ref: '#/components/schemas/NotOperation'
-          - $ref: '#/components/schemas/EqOperation'
-          - $ref: '#/components/schemas/GtOperation'
-          - $ref: '#/components/schemas/GteOperation'
-          - $ref: '#/components/schemas/InOperation'
-          - $ref: '#/components/schemas/ContainsOperation'
-          title: Input
-        to:
-          type: string
-          enum:
-          - double
-          - string
-          - int
-          - bool
-          - exists
-          title: To
-      type: object
-      required:
-      - input
-      - to
-      title: ConvertSpec
-    CallReadRes:
-      properties:
-        call:
-          anyOf:
-          - $ref: '#/components/schemas/CallSchema'
-          - type: 'null'
-      type: object
-      required:
-      - call
-      title: CallReadRes
     LiteralOperation:
       properties:
         $literal:
@@ -1160,6 +935,231 @@ components:
       required:
       - $literal
       title: LiteralOperation
+    SummaryInsertMap:
+      properties:
+        usage:
+          additionalProperties:
+            $ref: '#/components/schemas/LLMUsageSchema'
+          type: object
+          title: Usage
+      additionalProperties: true
+      type: object
+      title: SummaryInsertMap
+    NotOperation:
+      properties:
+        $not:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 1
+          minItems: 1
+          title: $Not
+      type: object
+      required:
+      - $not
+      title: NotOperation
+    CallsQueryStatsReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        filter:
+          anyOf:
+          - $ref: '#/components/schemas/CallsFilter'
+          - type: 'null'
+        query:
+          anyOf:
+          - $ref: '#/components/schemas/Query'
+          - type: 'null'
+      type: object
+      required:
+      - project_id
+      title: CallsQueryStatsReq
+    CallEndRes:
+      properties: {}
+      type: object
+      title: CallEndRes
+    CallReadReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        id:
+          type: string
+          title: Id
+        include_costs:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Costs
+          default: false
+      type: object
+      required:
+      - project_id
+      - id
+      title: CallReadReq
+    CallUpdateReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        call_id:
+          type: string
+          title: Call Id
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
+      type: object
+      required:
+      - project_id
+      - call_id
+      title: CallUpdateReq
+    ConvertOperation:
+      properties:
+        $convert:
+          $ref: '#/components/schemas/ConvertSpec'
+      type: object
+      required:
+      - $convert
+      title: ConvertOperation
+    CallReadRes:
+      properties:
+        call:
+          anyOf:
+          - $ref: '#/components/schemas/CallSchema'
+          - type: 'null'
+      type: object
+      required:
+      - call
+      title: CallReadRes
+    CallsFilter:
+      properties:
+        op_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Op Names
+        input_refs:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Input Refs
+        output_refs:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Output Refs
+        parent_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Parent Ids
+        trace_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Trace Ids
+        call_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Call Ids
+        trace_roots_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Trace Roots Only
+        wb_user_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Wb User Ids
+        wb_run_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Wb Run Ids
+      type: object
+      title: CallsFilter
+    CallEndReq:
+      properties:
+        end:
+          $ref: '#/components/schemas/EndedCallSchemaForInsert'
+      type: object
+      required:
+      - end
+      title: CallEndReq
+    GteOperation:
+      properties:
+        $gte:
+          prefixItems:
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          - anyOf:
+            - $ref: '#/components/schemas/LiteralOperation'
+            - $ref: '#/components/schemas/GetFieldOperator'
+            - $ref: '#/components/schemas/ConvertOperation'
+            - $ref: '#/components/schemas/AndOperation'
+            - $ref: '#/components/schemas/OrOperation'
+            - $ref: '#/components/schemas/NotOperation'
+            - $ref: '#/components/schemas/EqOperation'
+            - $ref: '#/components/schemas/GtOperation'
+            - $ref: '#/components/schemas/GteOperation'
+            - $ref: '#/components/schemas/InOperation'
+            - $ref: '#/components/schemas/ContainsOperation'
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: $Gte
+      type: object
+      required:
+      - $gte
+      title: GteOperation
   securitySchemes:
     HTTPBasic:
       type: http

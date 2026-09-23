@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fast Calls Service API
+  title: Fast Service API
   version: 0.1.0
 servers:
 - url: https://trace.wandb.ai
@@ -54,6 +54,24 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
+    ServerInfoRes:
+      properties:
+        min_required_weave_python_version:
+          type: string
+          title: Min Required Weave Python Version
+      type: object
+      required:
+      - min_required_weave_python_version
+      title: ServerInfoRes
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -75,24 +93,6 @@ components:
       - msg
       - type
       title: ValidationError
-    ServerInfoRes:
-      properties:
-        min_required_weave_python_version:
-          type: string
-          title: Min Required Weave Python Version
-      type: object
-      required:
-      - min_required_weave_python_version
-      title: ServerInfoRes
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBasic:
       type: http

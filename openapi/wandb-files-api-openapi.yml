@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fast Calls Files API
+  title: Fast Files API
   version: 0.1.0
 servers:
 - url: https://trace.wandb.ai
@@ -100,6 +100,19 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    FileContentReadReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        digest:
+          type: string
+          title: Digest
+      type: object
+      required:
+      - project_id
+      - digest
+      title: FileContentReadReq
     Body_file_create_file_create_post:
       properties:
         project_id:
@@ -114,19 +127,6 @@ components:
       - project_id
       - file
       title: Body_file_create_file_create_post
-    FileContentReadReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        digest:
-          type: string
-          title: Digest
-      type: object
-      required:
-      - project_id
-      - digest
-      title: FileContentReadReq
   securitySchemes:
     HTTPBasic:
       type: http

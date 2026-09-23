@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Fast Calls Tables API
+  title: Fast Tables API
   version: 0.1.0
 servers:
 - url: https://trace.wandb.ai
@@ -117,46 +117,35 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    TableRowSchema:
+    TableInsertSpecPayload:
       properties:
-        digest:
-          type: string
-          title: Digest
-        val:
-          title: Val
-        original_index:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Original Index
+        index:
+          type: integer
+          title: Index
+        row:
+          type: object
+          title: Row
       type: object
       required:
-      - digest
-      - val
-      title: TableRowSchema
-    TableSchemaForInsert:
+      - index
+      - row
+      title: TableInsertSpecPayload
+    TablePopSpec:
       properties:
-        project_id:
-          type: string
-          title: Project Id
-        rows:
-          items:
-            type: object
-          type: array
-          title: Rows
+        pop:
+          $ref: '#/components/schemas/TablePopSpecPayload'
       type: object
       required:
-      - project_id
-      - rows
-      title: TableSchemaForInsert
-    TableCreateReq:
+      - pop
+      title: TablePopSpec
+    TableInsertSpec:
       properties:
-        table:
-          $ref: '#/components/schemas/TableSchemaForInsert'
+        insert:
+          $ref: '#/components/schemas/TableInsertSpecPayload'
       type: object
       required:
-      - table
-      title: TableCreateReq
+      - insert
+      title: TableInsertSpec
     ValidationError:
       properties:
         loc:
@@ -178,14 +167,6 @@ components:
       - msg
       - type
       title: ValidationError
-    TablePopSpec:
-      properties:
-        pop:
-          $ref: '#/components/schemas/TablePopSpecPayload'
-      type: object
-      required:
-      - pop
-      title: TablePopSpec
     HTTPValidationError:
       properties:
         detail:
@@ -195,15 +176,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    TableQueryStatsRes:
-      properties:
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - count
-      title: TableQueryStatsRes
     TableQueryRes:
       properties:
         rows:
@@ -215,106 +187,6 @@ components:
       required:
       - rows
       title: TableQueryRes
-    TablePopSpecPayload:
-      properties:
-        index:
-          type: integer
-          title: Index
-      type: object
-      required:
-      - index
-      title: TablePopSpecPayload
-    TableUpdateReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        base_digest:
-          type: string
-          title: Base Digest
-        updates:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/TableAppendSpec'
-            - $ref: '#/components/schemas/TablePopSpec'
-            - $ref: '#/components/schemas/TableInsertSpec'
-          type: array
-          title: Updates
-      type: object
-      required:
-      - project_id
-      - base_digest
-      - updates
-      title: TableUpdateReq
-    TableRowFilter:
-      properties:
-        row_digests:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Row Digests
-          description: List of row digests to filter by
-          examples:
-          - - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
-            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
-      type: object
-      title: TableRowFilter
-    SortBy:
-      properties:
-        field:
-          type: string
-          title: Field
-        direction:
-          type: string
-          enum:
-          - asc
-          - desc
-          title: Direction
-      type: object
-      required:
-      - field
-      - direction
-      title: SortBy
-    TableAppendSpecPayload:
-      properties:
-        row:
-          type: object
-          title: Row
-      type: object
-      required:
-      - row
-      title: TableAppendSpecPayload
-    TableInsertSpec:
-      properties:
-        insert:
-          $ref: '#/components/schemas/TableInsertSpecPayload'
-      type: object
-      required:
-      - insert
-      title: TableInsertSpec
-    TableInsertSpecPayload:
-      properties:
-        index:
-          type: integer
-          title: Index
-        row:
-          type: object
-          title: Row
-      type: object
-      required:
-      - index
-      - row
-      title: TableInsertSpecPayload
-    TableAppendSpec:
-      properties:
-        append:
-          $ref: '#/components/schemas/TableAppendSpecPayload'
-      type: object
-      required:
-      - append
-      title: TableAppendSpec
     TableQueryReq:
       properties:
         project_id:
@@ -370,6 +242,78 @@ components:
       - project_id
       - digest
       title: TableQueryReq
+    TableRowFilter:
+      properties:
+        row_digests:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Row Digests
+          description: List of row digests to filter by
+          examples:
+          - - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+      type: object
+      title: TableRowFilter
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
+    TableSchemaForInsert:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        rows:
+          items:
+            type: object
+          type: array
+          title: Rows
+      type: object
+      required:
+      - project_id
+      - rows
+      title: TableSchemaForInsert
+    TableRowSchema:
+      properties:
+        digest:
+          type: string
+          title: Digest
+        val:
+          title: Val
+        original_index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Original Index
+      type: object
+      required:
+      - digest
+      - val
+      title: TableRowSchema
+    TableQueryStatsRes:
+      properties:
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - count
+      title: TableQueryStatsRes
     TableQueryStatsReq:
       properties:
         project_id:
@@ -404,6 +348,62 @@ components:
       required:
       - digest
       title: TableCreateRes
+    TableCreateReq:
+      properties:
+        table:
+          $ref: '#/components/schemas/TableSchemaForInsert'
+      type: object
+      required:
+      - table
+      title: TableCreateReq
+    TableAppendSpec:
+      properties:
+        append:
+          $ref: '#/components/schemas/TableAppendSpecPayload'
+      type: object
+      required:
+      - append
+      title: TableAppendSpec
+    TableAppendSpecPayload:
+      properties:
+        row:
+          type: object
+          title: Row
+      type: object
+      required:
+      - row
+      title: TableAppendSpecPayload
+    TableUpdateReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        base_digest:
+          type: string
+          title: Base Digest
+        updates:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/TableAppendSpec'
+            - $ref: '#/components/schemas/TablePopSpec'
+            - $ref: '#/components/schemas/TableInsertSpec'
+          type: array
+          title: Updates
+      type: object
+      required:
+      - project_id
+      - base_digest
+      - updates
+      title: TableUpdateReq
+    TablePopSpecPayload:
+      properties:
+        index:
+          type: integer
+          title: Index
+      type: object
+      required:
+      - index
+      title: TablePopSpecPayload
     TableUpdateRes:
       properties:
         digest:

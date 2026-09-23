@@ -1,15 +1,7 @@
 {
   "provider": "wandb",
   "sources": [
-    "wandb-calls-api-openapi.yml",
-    "wandb-costs-api-openapi.yml",
-    "wandb-feedback-api-openapi.yml",
-    "wandb-files-api-openapi.yml",
-    "wandb-objects-api-openapi.yml",
-    "wandb-refs-api-openapi.yml",
-    "wandb-service-api-openapi.yml",
-    "wandb-table-api-openapi.yml",
-    "wandb-tables-api-openapi.yml"
+    "_original/wandb-openapi.json"
   ],
   "outputs": [
     "wandb-calls-api-openapi.yml",
@@ -24,10 +16,33 @@
   ],
   "archived": [],
   "errors": [
-    "wandb-calls-api-openapi.yml: dangling $ref: #/components/schemas/Schema",
-    "wandb-table-api-openapi.yml: dangling $ref: #/components/schemas/Schema"
+    "wandb-openapi.json: dangling $ref: #/components/schemas/Schema"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "wandb-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "wandb-openapi.json: tagged paths POST /table/query_stream -> Table",
+    "wandb-openapi.json: declared missing tag: Calls",
+    "wandb-openapi.json: declared missing tag: Costs",
+    "wandb-openapi.json: declared missing tag: Feedback",
+    "wandb-openapi.json: declared missing tag: Files",
+    "wandb-openapi.json: declared missing tag: Objects",
+    "wandb-openapi.json: declared missing tag: Refs",
+    "wandb-openapi.json: declared missing tag: Service",
+    "wandb-openapi.json: declared missing tag: Table",
+    "wandb-openapi.json: declared missing tag: Tables",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "wandb-calls-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-costs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-feedback-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-objects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-refs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-service-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-table-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "wandb-tables-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
