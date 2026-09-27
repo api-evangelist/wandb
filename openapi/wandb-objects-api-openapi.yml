@@ -117,32 +117,45 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    ObjDeleteRes:
+    ObjCreateReq:
       properties:
-        num_deleted:
-          type: integer
-          title: Num Deleted
+        obj:
+          $ref: '#/components/schemas/ObjSchemaForInsert'
       type: object
       required:
-      - num_deleted
-      title: ObjDeleteRes
-    SortBy:
+      - obj
+      title: ObjCreateReq
+    ValidationError:
       properties:
-        field:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Field
-        direction:
+          title: Message
+        type:
           type: string
-          enum:
-          - asc
-          - desc
-          title: Direction
+          title: Error Type
       type: object
       required:
-      - field
-      - direction
-      title: SortBy
-    ObjDeleteReq:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ObjSchemaForInsert:
       properties:
         project_id:
           type: string
@@ -150,19 +163,31 @@ components:
         object_id:
           type: string
           title: Object Id
-        digests:
+        val:
+          title: Val
+        builtin_object_class:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: string
           - type: 'null'
-          title: Digests
-          description: List of digests to delete. If not provided, all digests for the object will be deleted.
+          title: Builtin Object Class
+        set_base_object_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Set Base Object Class
+          deprecated: true
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
       type: object
       required:
       - project_id
       - object_id
-      title: ObjDeleteReq
+      - val
+      title: ObjSchemaForInsert
     ObjSchema:
       properties:
         project_id:
@@ -218,14 +243,6 @@ components:
       - base_object_class
       - val
       title: ObjSchema
-    ObjReadRes:
-      properties:
-        obj:
-          $ref: '#/components/schemas/ObjSchema'
-      type: object
-      required:
-      - obj
-      title: ObjReadRes
     ObjQueryReq:
       properties:
         project_id:
@@ -281,27 +298,22 @@ components:
       required:
       - project_id
       title: ObjQueryReq
-    ValidationError:
+    SortBy:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        field:
           type: string
-          title: Message
-        type:
+          title: Field
+        direction:
           type: string
-          title: Error Type
+          enum:
+          - asc
+          - desc
+          title: Direction
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - field
+      - direction
+      title: SortBy
     ObjReadReq:
       properties:
         project_id:
@@ -326,14 +338,6 @@ components:
       - object_id
       - digest
       title: ObjReadReq
-    ObjCreateReq:
-      properties:
-        obj:
-          $ref: '#/components/schemas/ObjSchemaForInsert'
-      type: object
-      required:
-      - obj
-      title: ObjCreateReq
     ObjectVersionFilter:
       properties:
         base_object_classes:
@@ -379,7 +383,16 @@ components:
           - false
       type: object
       title: ObjectVersionFilter
-    ObjSchemaForInsert:
+    ObjDeleteRes:
+      properties:
+        num_deleted:
+          type: integer
+          title: Num Deleted
+      type: object
+      required:
+      - num_deleted
+      title: ObjDeleteRes
+    ObjDeleteReq:
       properties:
         project_id:
           type: string
@@ -387,40 +400,19 @@ components:
         object_id:
           type: string
           title: Object Id
-        val:
-          title: Val
-        builtin_object_class:
+        digests:
           anyOf:
-          - type: string
+          - items:
+              type: string
+            type: array
           - type: 'null'
-          title: Builtin Object Class
-        set_base_object_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Set Base Object Class
-          deprecated: true
-        wb_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb User Id
-          description: Do not set directly. Server will automatically populate this field.
+          title: Digests
+          description: List of digests to delete. If not provided, all digests for the object will be deleted.
       type: object
       required:
       - project_id
       - object_id
-      - val
-      title: ObjSchemaForInsert
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: ObjDeleteReq
     ObjQueryRes:
       properties:
         objs:
@@ -432,6 +424,14 @@ components:
       required:
       - objs
       title: ObjQueryRes
+    ObjReadRes:
+      properties:
+        obj:
+          $ref: '#/components/schemas/ObjSchema'
+      type: object
+      required:
+      - obj
+      title: ObjReadRes
     ObjCreateRes:
       properties:
         digest:

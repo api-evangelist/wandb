@@ -36,36 +36,6 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RefsReadBatchReq:
-      properties:
-        refs:
-          items:
-            type: string
-          type: array
-          title: Refs
-      type: object
-      required:
-      - refs
-      title: RefsReadBatchReq
-    RefsReadBatchRes:
-      properties:
-        vals:
-          items: {}
-          type: array
-          title: Vals
-      type: object
-      required:
-      - vals
-      title: RefsReadBatchRes
     ValidationError:
       properties:
         loc:
@@ -87,6 +57,36 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RefsReadBatchRes:
+      properties:
+        vals:
+          items: {}
+          type: array
+          title: Vals
+      type: object
+      required:
+      - vals
+      title: RefsReadBatchRes
+    RefsReadBatchReq:
+      properties:
+        refs:
+          items:
+            type: string
+          type: array
+          title: Refs
+      type: object
+      required:
+      - refs
+      title: RefsReadBatchReq
   securitySchemes:
     HTTPBasic:
       type: http

@@ -61,15 +61,19 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    FileCreateRes:
+    FileContentReadReq:
       properties:
+        project_id:
+          type: string
+          title: Project Id
         digest:
           type: string
           title: Digest
       type: object
       required:
+      - project_id
       - digest
-      title: FileCreateRes
+      title: FileContentReadReq
     ValidationError:
       properties:
         loc:
@@ -100,19 +104,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    FileContentReadReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        digest:
-          type: string
-          title: Digest
-      type: object
-      required:
-      - project_id
-      - digest
-      title: FileContentReadReq
     Body_file_create_file_create_post:
       properties:
         project_id:
@@ -127,6 +118,15 @@ components:
       - project_id
       - file
       title: Body_file_create_file_create_post
+    FileCreateRes:
+      properties:
+        digest:
+          type: string
+          title: Digest
+      type: object
+      required:
+      - digest
+      title: FileCreateRes
   securitySchemes:
     HTTPBasic:
       type: http

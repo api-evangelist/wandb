@@ -117,35 +117,79 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    TableInsertSpecPayload:
+    TablePopSpecPayload:
       properties:
         index:
           type: integer
           title: Index
-        row:
-          type: object
-          title: Row
       type: object
       required:
       - index
-      - row
-      title: TableInsertSpecPayload
-    TablePopSpec:
+      title: TablePopSpecPayload
+    TableQueryStatsReq:
       properties:
-        pop:
-          $ref: '#/components/schemas/TablePopSpecPayload'
+        project_id:
+          type: string
+          title: Project Id
+          description: The ID of the project
+          examples:
+          - my_entity/my_project
+        digest:
+          type: string
+          title: Digest
+          description: The digest of the table to query
+          examples:
+          - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
       type: object
       required:
-      - pop
-      title: TablePopSpec
-    TableInsertSpec:
+      - project_id
+      - digest
+      title: TableQueryStatsReq
+    TableSchemaForInsert:
       properties:
-        insert:
-          $ref: '#/components/schemas/TableInsertSpecPayload'
+        project_id:
+          type: string
+          title: Project Id
+        rows:
+          items:
+            type: object
+          type: array
+          title: Rows
       type: object
       required:
-      - insert
-      title: TableInsertSpec
+      - project_id
+      - rows
+      title: TableSchemaForInsert
+    TableUpdateRes:
+      properties:
+        digest:
+          type: string
+          title: Digest
+        updated_row_digests:
+          items:
+            type: string
+          type: array
+          title: Updated Row Digests
+          description: The digests of the rows that were updated
+      type: object
+      required:
+      - digest
+      title: TableUpdateRes
+    TableCreateRes:
+      properties:
+        digest:
+          type: string
+          title: Digest
+        row_digests:
+          items:
+            type: string
+          type: array
+          title: Row Digests
+          description: The digests of the rows that were created
+      type: object
+      required:
+      - digest
+      title: TableCreateRes
     ValidationError:
       properties:
         loc:
@@ -167,26 +211,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TableQueryRes:
-      properties:
-        rows:
-          items:
-            $ref: '#/components/schemas/TableRowSchema'
-          type: array
-          title: Rows
-      type: object
-      required:
-      - rows
-      title: TableQueryRes
     TableQueryReq:
       properties:
         project_id:
@@ -242,137 +266,6 @@ components:
       - project_id
       - digest
       title: TableQueryReq
-    TableRowFilter:
-      properties:
-        row_digests:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Row Digests
-          description: List of row digests to filter by
-          examples:
-          - - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
-            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
-      type: object
-      title: TableRowFilter
-    SortBy:
-      properties:
-        field:
-          type: string
-          title: Field
-        direction:
-          type: string
-          enum:
-          - asc
-          - desc
-          title: Direction
-      type: object
-      required:
-      - field
-      - direction
-      title: SortBy
-    TableSchemaForInsert:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        rows:
-          items:
-            type: object
-          type: array
-          title: Rows
-      type: object
-      required:
-      - project_id
-      - rows
-      title: TableSchemaForInsert
-    TableRowSchema:
-      properties:
-        digest:
-          type: string
-          title: Digest
-        val:
-          title: Val
-        original_index:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Original Index
-      type: object
-      required:
-      - digest
-      - val
-      title: TableRowSchema
-    TableQueryStatsRes:
-      properties:
-        count:
-          type: integer
-          title: Count
-      type: object
-      required:
-      - count
-      title: TableQueryStatsRes
-    TableQueryStatsReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-          description: The ID of the project
-          examples:
-          - my_entity/my_project
-        digest:
-          type: string
-          title: Digest
-          description: The digest of the table to query
-          examples:
-          - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
-      type: object
-      required:
-      - project_id
-      - digest
-      title: TableQueryStatsReq
-    TableCreateRes:
-      properties:
-        digest:
-          type: string
-          title: Digest
-        row_digests:
-          items:
-            type: string
-          type: array
-          title: Row Digests
-          description: The digests of the rows that were created
-      type: object
-      required:
-      - digest
-      title: TableCreateRes
-    TableCreateReq:
-      properties:
-        table:
-          $ref: '#/components/schemas/TableSchemaForInsert'
-      type: object
-      required:
-      - table
-      title: TableCreateReq
-    TableAppendSpec:
-      properties:
-        append:
-          $ref: '#/components/schemas/TableAppendSpecPayload'
-      type: object
-      required:
-      - append
-      title: TableAppendSpec
-    TableAppendSpecPayload:
-      properties:
-        row:
-          type: object
-          title: Row
-      type: object
-      required:
-      - row
-      title: TableAppendSpecPayload
     TableUpdateReq:
       properties:
         project_id:
@@ -395,30 +288,137 @@ components:
       - base_digest
       - updates
       title: TableUpdateReq
-    TablePopSpecPayload:
+    TableAppendSpecPayload:
+      properties:
+        row:
+          type: object
+          title: Row
+      type: object
+      required:
+      - row
+      title: TableAppendSpecPayload
+    TableRowFilter:
+      properties:
+        row_digests:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Row Digests
+          description: List of row digests to filter by
+          examples:
+          - - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+      type: object
+      title: TableRowFilter
+    TableCreateReq:
+      properties:
+        table:
+          $ref: '#/components/schemas/TableSchemaForInsert'
+      type: object
+      required:
+      - table
+      title: TableCreateReq
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TableQueryRes:
+      properties:
+        rows:
+          items:
+            $ref: '#/components/schemas/TableRowSchema'
+          type: array
+          title: Rows
+      type: object
+      required:
+      - rows
+      title: TableQueryRes
+    TablePopSpec:
+      properties:
+        pop:
+          $ref: '#/components/schemas/TablePopSpecPayload'
+      type: object
+      required:
+      - pop
+      title: TablePopSpec
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
+    TableAppendSpec:
+      properties:
+        append:
+          $ref: '#/components/schemas/TableAppendSpecPayload'
+      type: object
+      required:
+      - append
+      title: TableAppendSpec
+    TableQueryStatsRes:
+      properties:
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - count
+      title: TableQueryStatsRes
+    TableInsertSpecPayload:
       properties:
         index:
           type: integer
           title: Index
+        row:
+          type: object
+          title: Row
       type: object
       required:
       - index
-      title: TablePopSpecPayload
-    TableUpdateRes:
+      - row
+      title: TableInsertSpecPayload
+    TableRowSchema:
       properties:
         digest:
           type: string
           title: Digest
-        updated_row_digests:
-          items:
-            type: string
-          type: array
-          title: Updated Row Digests
-          description: The digests of the rows that were updated
+        val:
+          title: Val
+        original_index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Original Index
       type: object
       required:
       - digest
-      title: TableUpdateRes
+      - val
+      title: TableRowSchema
+    TableInsertSpec:
+      properties:
+        insert:
+          $ref: '#/components/schemas/TableInsertSpecPayload'
+      type: object
+      required:
+      - insert
+      title: TableInsertSpec
   securitySchemes:
     HTTPBasic:
       type: http
