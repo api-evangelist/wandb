@@ -61,19 +61,6 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    FileContentReadReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        digest:
-          type: string
-          title: Digest
-      type: object
-      required:
-      - project_id
-      - digest
-      title: FileContentReadReq
     ValidationError:
       properties:
         loc:
@@ -127,6 +114,19 @@ components:
       required:
       - digest
       title: FileCreateRes
+    FileContentReadReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        digest:
+          type: string
+          title: Digest
+      type: object
+      required:
+      - project_id
+      - digest
+      title: FileContentReadReq
   securitySchemes:
     HTTPBasic:
       type: http

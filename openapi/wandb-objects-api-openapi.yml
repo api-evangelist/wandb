@@ -155,39 +155,85 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ObjSchemaForInsert:
+    ObjectVersionFilter:
       properties:
-        project_id:
+        base_object_classes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Base Object Classes
+          description: Filter objects by their base classes
+          examples:
+          - - Model
+          - - Dataset
+        object_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Object Ids
+          description: Filter objects by their IDs
+          examples:
+          - my_favorite_model
+          - my_favorite_dataset
+        is_op:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Op
+          description: Filter objects based on whether they are weave.ops or not. `True` will only return ops, `False` will return non-ops, and `None` will return all objects
+          examples:
+          - true
+          - false
+          - null
+        latest_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Latest Only
+          description: If True, return only the latest version of each object. `False` and `None` will return all versions
+          examples:
+          - true
+          - false
+      type: object
+      title: ObjectVersionFilter
+    ObjCreateRes:
+      properties:
+        digest:
           type: string
-          title: Project Id
-        object_id:
-          type: string
-          title: Object Id
-        val:
-          title: Val
-        builtin_object_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Builtin Object Class
-        set_base_object_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Set Base Object Class
-          deprecated: true
-        wb_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb User Id
-          description: Do not set directly. Server will automatically populate this field.
+          title: Digest
       type: object
       required:
-      - project_id
-      - object_id
-      - val
-      title: ObjSchemaForInsert
+      - digest
+      title: ObjCreateRes
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
+    ObjDeleteRes:
+      properties:
+        num_deleted:
+          type: integer
+          title: Num Deleted
+      type: object
+      required:
+      - num_deleted
+      title: ObjDeleteRes
     ObjSchema:
       properties:
         project_id:
@@ -243,6 +289,39 @@ components:
       - base_object_class
       - val
       title: ObjSchema
+    ObjSchemaForInsert:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        object_id:
+          type: string
+          title: Object Id
+        val:
+          title: Val
+        builtin_object_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Builtin Object Class
+        set_base_object_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Set Base Object Class
+          deprecated: true
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
+      type: object
+      required:
+      - project_id
+      - object_id
+      - val
+      title: ObjSchemaForInsert
     ObjQueryReq:
       properties:
         project_id:
@@ -298,22 +377,46 @@ components:
       required:
       - project_id
       title: ObjQueryReq
-    SortBy:
+    ObjReadRes:
       properties:
-        field:
-          type: string
-          title: Field
-        direction:
-          type: string
-          enum:
-          - asc
-          - desc
-          title: Direction
+        obj:
+          $ref: '#/components/schemas/ObjSchema'
       type: object
       required:
-      - field
-      - direction
-      title: SortBy
+      - obj
+      title: ObjReadRes
+    ObjQueryRes:
+      properties:
+        objs:
+          items:
+            $ref: '#/components/schemas/ObjSchema'
+          type: array
+          title: Objs
+      type: object
+      required:
+      - objs
+      title: ObjQueryRes
+    ObjDeleteReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        object_id:
+          type: string
+          title: Object Id
+        digests:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Digests
+          description: List of digests to delete. If not provided, all digests for the object will be deleted.
+      type: object
+      required:
+      - project_id
+      - object_id
+      title: ObjDeleteReq
     ObjReadReq:
       properties:
         project_id:
@@ -338,109 +441,6 @@ components:
       - object_id
       - digest
       title: ObjReadReq
-    ObjectVersionFilter:
-      properties:
-        base_object_classes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Base Object Classes
-          description: Filter objects by their base classes
-          examples:
-          - - Model
-          - - Dataset
-        object_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Object Ids
-          description: Filter objects by their IDs
-          examples:
-          - my_favorite_model
-          - my_favorite_dataset
-        is_op:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Op
-          description: Filter objects based on whether they are weave.ops or not. `True` will only return ops, `False` will return non-ops, and `None` will return all objects
-          examples:
-          - true
-          - false
-          - null
-        latest_only:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Latest Only
-          description: If True, return only the latest version of each object. `False` and `None` will return all versions
-          examples:
-          - true
-          - false
-      type: object
-      title: ObjectVersionFilter
-    ObjDeleteRes:
-      properties:
-        num_deleted:
-          type: integer
-          title: Num Deleted
-      type: object
-      required:
-      - num_deleted
-      title: ObjDeleteRes
-    ObjDeleteReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        object_id:
-          type: string
-          title: Object Id
-        digests:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Digests
-          description: List of digests to delete. If not provided, all digests for the object will be deleted.
-      type: object
-      required:
-      - project_id
-      - object_id
-      title: ObjDeleteReq
-    ObjQueryRes:
-      properties:
-        objs:
-          items:
-            $ref: '#/components/schemas/ObjSchema'
-          type: array
-          title: Objs
-      type: object
-      required:
-      - objs
-      title: ObjQueryRes
-    ObjReadRes:
-      properties:
-        obj:
-          $ref: '#/components/schemas/ObjSchema'
-      type: object
-      required:
-      - obj
-      title: ObjReadRes
-    ObjCreateRes:
-      properties:
-        digest:
-          type: string
-          title: Digest
-      type: object
-      required:
-      - digest
-      title: ObjCreateRes
   securitySchemes:
     HTTPBasic:
       type: http

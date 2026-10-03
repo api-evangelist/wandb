@@ -36,6 +36,16 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
+    RefsReadBatchRes:
+      properties:
+        vals:
+          items: {}
+          type: array
+          title: Vals
+      type: object
+      required:
+      - vals
+      title: RefsReadBatchRes
     ValidationError:
       properties:
         loc:
@@ -66,16 +76,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    RefsReadBatchRes:
-      properties:
-        vals:
-          items: {}
-          type: array
-          title: Vals
-      type: object
-      required:
-      - vals
-      title: RefsReadBatchRes
     RefsReadBatchReq:
       properties:
         refs:

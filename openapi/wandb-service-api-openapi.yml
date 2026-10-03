@@ -54,15 +54,6 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    ServerInfoRes:
-      properties:
-        min_required_weave_python_version:
-          type: string
-          title: Min Required Weave Python Version
-      type: object
-      required:
-      - min_required_weave_python_version
-      title: ServerInfoRes
     ValidationError:
       properties:
         loc:
@@ -93,6 +84,15 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ServerInfoRes:
+      properties:
+        min_required_weave_python_version:
+          type: string
+          title: Min Required Weave Python Version
+      type: object
+      required:
+      - min_required_weave_python_version
+      title: ServerInfoRes
   securitySchemes:
     HTTPBasic:
       type: http
