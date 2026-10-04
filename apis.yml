@@ -264,6 +264,9 @@ apis:
   - type: OpenAPI
     url: openapi/wandb-tables-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/wandb-capability-edges.yml
+  name: Weights and Biases Business Capability Map
 - type: ParentCompany
   url: https://apis.io/providers/coreweave/
   name: CoreWeave
