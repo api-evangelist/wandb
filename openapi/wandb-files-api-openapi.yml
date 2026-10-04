@@ -82,15 +82,19 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    FileContentReadReq:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        project_id:
+          type: string
+          title: Project Id
+        digest:
+          type: string
+          title: Digest
       type: object
-      title: HTTPValidationError
+      required:
+      - project_id
+      - digest
+      title: FileContentReadReq
     Body_file_create_file_create_post:
       properties:
         project_id:
@@ -105,6 +109,15 @@ components:
       - project_id
       - file
       title: Body_file_create_file_create_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     FileCreateRes:
       properties:
         digest:
@@ -114,19 +127,6 @@ components:
       required:
       - digest
       title: FileCreateRes
-    FileContentReadReq:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        digest:
-          type: string
-          title: Digest
-      type: object
-      required:
-      - project_id
-      - digest
-      title: FileContentReadReq
   securitySchemes:
     HTTPBasic:
       type: http

@@ -117,89 +117,15 @@ paths:
       - HTTPBasic: []
 components:
   schemas:
-    ObjCreateReq:
+    ObjDeleteRes:
       properties:
-        obj:
-          $ref: '#/components/schemas/ObjSchemaForInsert'
+        num_deleted:
+          type: integer
+          title: Num Deleted
       type: object
       required:
-      - obj
-      title: ObjCreateReq
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ObjectVersionFilter:
-      properties:
-        base_object_classes:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Base Object Classes
-          description: Filter objects by their base classes
-          examples:
-          - - Model
-          - - Dataset
-        object_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Object Ids
-          description: Filter objects by their IDs
-          examples:
-          - my_favorite_model
-          - my_favorite_dataset
-        is_op:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Op
-          description: Filter objects based on whether they are weave.ops or not. `True` will only return ops, `False` will return non-ops, and `None` will return all objects
-          examples:
-          - true
-          - false
-          - null
-        latest_only:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Latest Only
-          description: If True, return only the latest version of each object. `False` and `None` will return all versions
-          examples:
-          - true
-          - false
-      type: object
-      title: ObjectVersionFilter
+      - num_deleted
+      title: ObjDeleteRes
     ObjCreateRes:
       properties:
         digest:
@@ -209,6 +135,35 @@ components:
       required:
       - digest
       title: ObjCreateRes
+    ObjDeleteReq:
+      properties:
+        project_id:
+          type: string
+          title: Project Id
+        object_id:
+          type: string
+          title: Object Id
+        digests:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Digests
+          description: List of digests to delete. If not provided, all digests for the object will be deleted.
+      type: object
+      required:
+      - project_id
+      - object_id
+      title: ObjDeleteReq
+    ObjReadRes:
+      properties:
+        obj:
+          $ref: '#/components/schemas/ObjSchema'
+      type: object
+      required:
+      - obj
+      title: ObjReadRes
     SortBy:
       properties:
         field:
@@ -225,103 +180,6 @@ components:
       - field
       - direction
       title: SortBy
-    ObjDeleteRes:
-      properties:
-        num_deleted:
-          type: integer
-          title: Num Deleted
-      type: object
-      required:
-      - num_deleted
-      title: ObjDeleteRes
-    ObjSchema:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        object_id:
-          type: string
-          title: Object Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        deleted_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Deleted At
-        digest:
-          type: string
-          title: Digest
-        version_index:
-          type: integer
-          title: Version Index
-        is_latest:
-          type: integer
-          title: Is Latest
-        kind:
-          type: string
-          title: Kind
-        base_object_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Base Object Class
-        val:
-          title: Val
-        wb_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb User Id
-          description: Do not set directly. Server will automatically populate this field.
-      type: object
-      required:
-      - project_id
-      - object_id
-      - created_at
-      - digest
-      - version_index
-      - is_latest
-      - kind
-      - base_object_class
-      - val
-      title: ObjSchema
-    ObjSchemaForInsert:
-      properties:
-        project_id:
-          type: string
-          title: Project Id
-        object_id:
-          type: string
-          title: Object Id
-        val:
-          title: Val
-        builtin_object_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Builtin Object Class
-        set_base_object_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Set Base Object Class
-          deprecated: true
-        wb_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Wb User Id
-          description: Do not set directly. Server will automatically populate this field.
-      type: object
-      required:
-      - project_id
-      - object_id
-      - val
-      title: ObjSchemaForInsert
     ObjQueryReq:
       properties:
         project_id:
@@ -377,14 +235,60 @@ components:
       required:
       - project_id
       title: ObjQueryReq
-    ObjReadRes:
+    ObjSchemaForInsert:
       properties:
-        obj:
-          $ref: '#/components/schemas/ObjSchema'
+        project_id:
+          type: string
+          title: Project Id
+        object_id:
+          type: string
+          title: Object Id
+        val:
+          title: Val
+        builtin_object_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Builtin Object Class
+        set_base_object_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Set Base Object Class
+          deprecated: true
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
       type: object
       required:
-      - obj
-      title: ObjReadRes
+      - project_id
+      - object_id
+      - val
+      title: ObjSchemaForInsert
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ObjQueryRes:
       properties:
         objs:
@@ -396,7 +300,52 @@ components:
       required:
       - objs
       title: ObjQueryRes
-    ObjDeleteReq:
+    ObjectVersionFilter:
+      properties:
+        base_object_classes:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Base Object Classes
+          description: Filter objects by their base classes
+          examples:
+          - - Model
+          - - Dataset
+        object_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Object Ids
+          description: Filter objects by their IDs
+          examples:
+          - my_favorite_model
+          - my_favorite_dataset
+        is_op:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Op
+          description: Filter objects based on whether they are weave.ops or not. `True` will only return ops, `False` will return non-ops, and `None` will return all objects
+          examples:
+          - true
+          - false
+          - null
+        latest_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Latest Only
+          description: If True, return only the latest version of each object. `False` and `None` will return all versions
+          examples:
+          - true
+          - false
+      type: object
+      title: ObjectVersionFilter
+    ObjSchema:
       properties:
         project_id:
           type: string
@@ -404,19 +353,70 @@ components:
         object_id:
           type: string
           title: Object Id
-        digests:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        deleted_at:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: string
+            format: date-time
           - type: 'null'
-          title: Digests
-          description: List of digests to delete. If not provided, all digests for the object will be deleted.
+          title: Deleted At
+        digest:
+          type: string
+          title: Digest
+        version_index:
+          type: integer
+          title: Version Index
+        is_latest:
+          type: integer
+          title: Is Latest
+        kind:
+          type: string
+          title: Kind
+        base_object_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Base Object Class
+        val:
+          title: Val
+        wb_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wb User Id
+          description: Do not set directly. Server will automatically populate this field.
       type: object
       required:
       - project_id
       - object_id
-      title: ObjDeleteReq
+      - created_at
+      - digest
+      - version_index
+      - is_latest
+      - kind
+      - base_object_class
+      - val
+      title: ObjSchema
+    ObjCreateReq:
+      properties:
+        obj:
+          $ref: '#/components/schemas/ObjSchemaForInsert'
+      type: object
+      required:
+      - obj
+      title: ObjCreateReq
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ObjReadReq:
       properties:
         project_id:

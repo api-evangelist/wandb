@@ -46,67 +46,6 @@ paths:
       - Table
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SortBy:
-      properties:
-        field:
-          type: string
-          title: Field
-        direction:
-          type: string
-          enum:
-          - asc
-          - desc
-          title: Direction
-      type: object
-      required:
-      - field
-      - direction
-      title: SortBy
-    TableRowFilter:
-      properties:
-        row_digests:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Row Digests
-          description: List of row digests to filter by
-          examples:
-          - - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
-            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
-      type: object
-      title: TableRowFilter
     TableQueryReq:
       properties:
         project_id:
@@ -162,6 +101,67 @@ components:
       - project_id
       - digest
       title: TableQueryReq
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SortBy:
+      properties:
+        field:
+          type: string
+          title: Field
+        direction:
+          type: string
+          enum:
+          - asc
+          - desc
+          title: Direction
+      type: object
+      required:
+      - field
+      - direction
+      title: SortBy
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TableRowFilter:
+      properties:
+        row_digests:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Row Digests
+          description: List of row digests to filter by
+          examples:
+          - - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+            - aonareimsvtl13apimtalpa4435rpmgnaemrpgmarltarstaorsnte134avrims
+      type: object
+      title: TableRowFilter
   securitySchemes:
     HTTPBasic:
       type: http
